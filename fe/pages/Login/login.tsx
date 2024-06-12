@@ -10,7 +10,6 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
-const image = { uri: require("../assets/login&register/background.png") };
 
 const LoginScreen = () => {
   const handleRegisterPress = () => {
@@ -26,13 +25,13 @@ const LoginScreen = () => {
   return (
     <SafeAreaView style={styles.Container}>
       <ImageBackground
-        source={require("../assets/login&register/background.png")}
+        source={require("../../assets/login&register/background.png")}
         style={styles.background}
         resizeMode="cover"
       >
         <View style={styles.headercontainer}>
           <ImageBackground
-            source={require("../../fe/assets/logo6 (1).png")}
+            source={require("../../assets/logo.png")}
             style={styles.logo}
             imageStyle={styles.imglogo}
           />
