@@ -1,5 +1,5 @@
 import { ImageBackground, StyleSheet, View, Image } from "react-native";
-
+import React, { useState } from "react";
 const SplashScreen = () => {
   return (
     <View>
