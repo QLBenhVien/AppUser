@@ -11,6 +11,7 @@ export default function App() {
       setIsShowSplass(false);
     }, 3000);
   });
+  // return <SplashScreen />;
   return <>{isShowSplash ? <SplashScreen /> : <LoginScreen />}</>;
 }
 

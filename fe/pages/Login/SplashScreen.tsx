@@ -1,21 +1,16 @@
-import { ImageBackground, StyleSheet, View, Image } from "react-native";
+import { useWindowDimensions, StyleSheet, View, Image } from "react-native";
 
 const SplashScreen = () => {
+  const { width, height } = useWindowDimensions();
+
   return (
     <View>
       <Image
-        style={style.splash}
+        style={[{ width: width, height: height }]}
         source={require("../../assets/login&register/splash.png")}
       />
     </View>
   );
 };
-
-const style = StyleSheet.create({
-  splash: {
-    width: "100%",
-    height: "100%",
-  },
-});
 
 export default SplashScreen;
