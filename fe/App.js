@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import LoginScreen from "./pages/Login/login";
 import SplashScreen from "./pages/Login/SplashScreen";
-import RegisterScreen from "./pages/Login/Register";
+import RegisterScreen from "./pages/Login/register";
 import ForgotScreen from "./pages/Login/forgotpassScreen";
 import CodeconfirmScreen from "./pages/Login/codeconfirm";
 import { useEffect, useState } from "react";

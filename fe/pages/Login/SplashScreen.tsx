@@ -1,3 +1,4 @@
+import React from "react";
 import { useWindowDimensions, StyleSheet, View, Image } from "react-native";
 
 const SplashScreen = () => {
