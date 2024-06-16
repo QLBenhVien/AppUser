@@ -31,11 +31,11 @@ const ForgotScreen = () => {
             imageStyle={styles.imglogo}/>
           <Text style={styles.textlogo}>UCM</Text>
         </View>
-        <View style={{marginTop:20,justifyContent:'center',alignItems:'center',}}>
+        
+        <View style={styles.bodycontainer}>
+        <View style={{marginTop:40,justifyContent:'center',alignItems:'center',}}>
             <Text style={{fontSize:20, fontWeight:'bold'}}> Quên Mật Khẩu</Text>
           </View>
-        <View style={styles.bodycontainer}>
-          
           <View style={styles.Infor}>
             <TextInput
               style={styles.Inputinfor}
@@ -44,8 +44,7 @@ const ForgotScreen = () => {
             <TextInput style={styles.Inputpass} placeholder="Mật khẩu" />
             <TextInput style={styles.Inputpass2} placeholder="Nhập lại mật khẩu" />
           </View>
-        </View>
-        <View style={styles.btnLogin}>
+          <View style={styles.btnLogin}>
           <TouchableOpacity style={styles.button2} onPress={handleUpdatePress}>
             <Text style={[styles.buttonText, { color: "#ffffff" }]}>
               Cập nhật
@@ -58,6 +57,8 @@ const ForgotScreen = () => {
               <Text style={styles.loginlink}> Đăng nhập</Text>
             </TouchableOpacity>
         </View>
+        </View>
+       
       </ImageBackground>
     </SafeAreaView>
   );
@@ -99,6 +100,7 @@ const styles = StyleSheet.create({
   bodycontainer: {
     marginHorizontal: 15,
     marginTop: 20,
+    flex:1,
    
   },
   Infor: {
@@ -107,7 +109,6 @@ const styles = StyleSheet.create({
   },
   Inputinfor: {
     height: 50,
-    paddingVertical: 10,
     paddingHorizontal: 15,
     borderWidth: 1,
     borderColor: "gray",
@@ -118,7 +119,6 @@ const styles = StyleSheet.create({
   },
   Inputpass:{
     height: 50,
-    paddingVertical: 10,
     paddingHorizontal: 15,
     borderWidth: 1,
     borderColor: "gray",
@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
   },
   Inputpass2:{
     height: 50,
-    paddingVertical: 10,
     paddingHorizontal: 15,
     borderWidth: 1,
     borderColor: "gray",
@@ -146,10 +145,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   btnLogin: {
-    marginHorizontal: 15,
     height: 50,
     justifyContent: "center",
-    marginVertical: 30,
+    marginTop:'5%',
   },
   button2: {
     backgroundColor: "#22668e",

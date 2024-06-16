@@ -16,7 +16,7 @@ export default function App() {
   // });
   // return <>{isShowSplash ? <SplashScreen /> : <LoginScreen />}</>;
   return ( 
-   <ForgotScreen></ForgotScreen>
+ <RegisterScreen></RegisterScreen>
 );
 }
 const styles = StyleSheet.create({});
