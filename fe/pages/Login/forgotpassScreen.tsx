@@ -16,7 +16,7 @@ const ForgotScreen = (props: { navigation: { goBack: () => void } }) => {
     Alert.alert("Cập nhật thành công");
   };
   const handleLoginPress = () => {
-    Alert.alert("Chuyển trang");
+    props.navigation.goBack();
   };
   const handleBackPress = () => {
     props.navigation.goBack();
@@ -54,12 +54,14 @@ const ForgotScreen = (props: { navigation: { goBack: () => void } }) => {
         <View style={styles.bodycontainer}>
           <View
             style={{
-              marginTop: 40,
+              marginTop: "5%",
               justifyContent: "center",
               alignItems: "center",
             }}
           >
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+            <Text
+              style={{ fontSize: 20, fontWeight: "bold", color: "#22668E" }}
+            >
               {" "}
               Quên Mật Khẩu
             </Text>
@@ -80,7 +82,7 @@ const ForgotScreen = (props: { navigation: { goBack: () => void } }) => {
               style={styles.button2}
               onPress={handleUpdatePress}
             >
-              <Text style={[styles.buttonText, { color: "#ffffff" }]}>
+              <Text style={[styles.buttonText, { color: "#fff" }]}>
                 Cập nhật
               </Text>
             </TouchableOpacity>
@@ -133,7 +135,6 @@ const styles = StyleSheet.create({
   },
   bodycontainer: {
     marginHorizontal: 15,
-    marginTop: 20,
     flex: 1,
   },
   Infor: {
@@ -143,9 +144,9 @@ const styles = StyleSheet.create({
   Inputinfor: {
     height: 50,
     paddingHorizontal: 15,
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: "gray",
-    borderRadius: 5,
+    borderRadius: 15,
     fontSize: 16,
     marginVertical: 10,
     backgroundColor: "#B8CCD7",
@@ -153,9 +154,9 @@ const styles = StyleSheet.create({
   Inputpass: {
     height: 50,
     paddingHorizontal: 15,
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: "gray",
-    borderRadius: 5,
+    borderRadius: 15,
     fontSize: 16,
     marginVertical: 10,
     backgroundColor: "#B8CCD7",
@@ -163,9 +164,9 @@ const styles = StyleSheet.create({
   Inputpass2: {
     height: 50,
     paddingHorizontal: 15,
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: "gray",
-    borderRadius: 5,
+    borderRadius: 15,
     fontSize: 16,
     marginVertical: 10,
     backgroundColor: "#B8CCD7",
@@ -201,5 +202,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#22668e",
     textDecorationLine: "underline",
+    marginBottom: "10%",
   },
 });
