@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FontAwesome5 } from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -10,11 +11,14 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
-const ForgotScreen = (props) => {
+const ForgotScreen = (props: { navigation: { goBack: () => void } }) => {
   const handleUpdatePress = () => {
     Alert.alert("Cập nhật thành công");
   };
   const handleLoginPress = () => {
+    Alert.alert("Chuyển trang");
+  };
+  const handleBackPress = () => {
     props.navigation.goBack();
   };
   return (
@@ -24,6 +28,20 @@ const ForgotScreen = (props) => {
         style={styles.background}
         resizeMode="cover"
       >
+        <View
+          style={{
+            paddingHorizontal: 20,
+            transform: [{ scaleY: 1 }],
+            paddingTop: "5%",
+          }}
+        >
+          <FontAwesome5
+            name="arrow-left"
+            size={20}
+            color="#ffffff"
+            onPress={handleBackPress}
+          />
+        </View>
         <View style={styles.headercontainer}>
           <ImageBackground
             source={require("../../assets/logo.png")}
@@ -32,19 +50,20 @@ const ForgotScreen = (props) => {
           />
           <Text style={styles.textlogo}>UCM</Text>
         </View>
-        <View
-          style={{
-            marginTop: 20,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-            {" "}
-            Quên Mật Khẩu
-          </Text>
-        </View>
+
         <View style={styles.bodycontainer}>
+          <View
+            style={{
+              marginTop: 40,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              {" "}
+              Quên Mật Khẩu
+            </Text>
+          </View>
           <View style={styles.Infor}>
             <TextInput
               style={styles.Inputinfor}
@@ -56,19 +75,22 @@ const ForgotScreen = (props) => {
               placeholder="Nhập lại mật khẩu"
             />
           </View>
-        </View>
-        <View style={styles.btnLogin}>
-          <TouchableOpacity style={styles.button2} onPress={handleUpdatePress}>
-            <Text style={[styles.buttonText, { color: "#ffffff" }]}>
-              Cập nhật
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.back}>
-          <Text> Quay lại màn hình</Text>
-          <TouchableOpacity onPress={handleLoginPress}>
-            <Text style={styles.loginlink}> Đăng nhập</Text>
-          </TouchableOpacity>
+          <View style={styles.btnLogin}>
+            <TouchableOpacity
+              style={styles.button2}
+              onPress={handleUpdatePress}
+            >
+              <Text style={[styles.buttonText, { color: "#ffffff" }]}>
+                Cập nhật
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.back}>
+            <Text> Quay lại màn hình</Text>
+            <TouchableOpacity onPress={handleLoginPress}>
+              <Text style={styles.loginlink}> Đăng nhập</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ImageBackground>
     </SafeAreaView>
@@ -78,6 +100,7 @@ export default ForgotScreen;
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
+    backgroundColor: "#22668E",
   },
   background: {
     flex: 1,
@@ -111,6 +134,7 @@ const styles = StyleSheet.create({
   bodycontainer: {
     marginHorizontal: 15,
     marginTop: 20,
+    flex: 1,
   },
   Infor: {
     paddingHorizontal: 15,
@@ -118,7 +142,6 @@ const styles = StyleSheet.create({
   },
   Inputinfor: {
     height: 50,
-    paddingVertical: 10,
     paddingHorizontal: 15,
     borderWidth: 1,
     borderColor: "gray",
@@ -129,7 +152,6 @@ const styles = StyleSheet.create({
   },
   Inputpass: {
     height: 50,
-    paddingVertical: 10,
     paddingHorizontal: 15,
     borderWidth: 1,
     borderColor: "gray",
@@ -140,7 +162,6 @@ const styles = StyleSheet.create({
   },
   Inputpass2: {
     height: 50,
-    paddingVertical: 10,
     paddingHorizontal: 15,
     borderWidth: 1,
     borderColor: "gray",
@@ -156,10 +177,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   btnLogin: {
-    marginHorizontal: 15,
     height: 50,
     justifyContent: "center",
-    marginVertical: 30,
+    marginTop: "5%",
   },
   button2: {
     backgroundColor: "#22668e",

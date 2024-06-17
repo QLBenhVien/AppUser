@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FontAwesome5 } from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -25,6 +26,9 @@ const LoginScreen = (props: {
   };
   const handleforgotPassPress = () => {
     props.navigation.navigate("ForgotPass");
+  };
+  const handleBackPress = () => {
+    Alert.alert("Chuyển trang");
   };
 
   return (
@@ -83,6 +87,7 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
+    backgroundColor: "#22668E",
   },
   background: {
     flex: 1,
@@ -116,7 +121,7 @@ const styles = StyleSheet.create({
   bodycontainer: {
     flex: 1,
     marginHorizontal: 15,
-    marginTop: 60,
+    marginTop: "15%",
   },
   Infor: {
     paddingHorizontal: 15,
@@ -126,7 +131,7 @@ const styles = StyleSheet.create({
     height: 50,
     paddingVertical: 10,
     paddingHorizontal: 15,
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: "gray",
     borderRadius: 5,
     fontSize: 16,
@@ -164,7 +169,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     height: 50,
     justifyContent: "center",
-    marginVertical: 10,
+    marginVertical: "5%",
   },
   button2: {
     backgroundColor: "#22668e",
@@ -184,7 +189,8 @@ const styles = StyleSheet.create({
   fogetPassText: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#rgb(0, 0, 255)",
+    color: "#22668E",
     textDecorationLine: "underline",
+    marginBottom: "5%",
   },
 });

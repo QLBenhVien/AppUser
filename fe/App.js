@@ -9,14 +9,6 @@ import { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 export default function App() {
-  // const [isShowSplash, setIsShowSplass] = useState(true);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsShowSplass(false);
-  //   }, 3000);
-  // });
-  // return <>{isShowSplash ? <SplashScreen /> : <LoginScreen />}</>;
-  // const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
       <OurApp />
@@ -26,7 +18,15 @@ export default function App() {
 
 export const OurApp = () => {
   const Stack = createNativeStackNavigator();
-  return (
+  const [isShowSplash, setIsShowSplass] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsShowSplass(false);
+    }, 3000);
+  });
+  return isShowSplash ? (
+    <SplashScreen />
+  ) : (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,

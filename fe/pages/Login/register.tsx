@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from "react-native-vector-icons/FontAwesome";
+import { FontAwesome5 } from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -12,51 +13,140 @@ import {
   ScrollView,
 } from "react-native";
 
-const RegisterScreen = () => {
+const RegisterScreen: React.FC = (props) => {
   const [selectedSex, setSelectedSex] = useState<string | null>(null);
+  const [fullName, setFullName] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-  const options = ['Nam', 'Nữ'];
+  const [fullNameError, setFullNameError] = useState<string>("");
+  const [phoneNumberError, setPhoneNumberError] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState<string>("");
+
+  const options = ["Nam", "Nữ"];
 
   function pickSex(sex: string) {
     setSelectedSex(sex);
   }
-  const handleRegisterPress = () => {
-    Alert.alert('Đăng ký thành công');
+
+  const handleBackPress = () => {
+    props.navigation.goBack();
   };
-  const handleLoginPress = () => {
-   Alert.alert('Chuyển trang');
- };
- const handleforgotPassPress = () => {
-   Alert.alert('Chuyển trang');
- };
+
+  const handleRegisterPress = () => {
+    let isValid = true;
+
+    if (fullName.length < 3) {
+      setFullNameError("Họ và tên phải có ít nhất 3 ký tự");
+      isValid = false;
+    } else {
+      setFullNameError("");
+    }
+
+    if (phoneNumber.length < 10) {
+      setPhoneNumberError("Số điện thoại phải có ít nhất 10 ký tự");
+      isValid = false;
+    } else {
+      setPhoneNumberError("");
+    }
+
+    if (!email.includes("@")) {
+      setEmailError("Email không hợp lệ");
+      isValid = false;
+    } else {
+      setEmailError("");
+    }
+
+    if (password.length < 6) {
+      setPasswordError("Mật khẩu phải có ít nhất 6 ký tự");
+      isValid = false;
+    } else {
+      setPasswordError("");
+    }
+
+    if (password !== confirmPassword) {
+      setConfirmPasswordError("Mật khẩu và xác nhận mật khẩu không khớp");
+      isValid = false;
+    } else {
+      setConfirmPasswordError("");
+    }
+
+    if (isValid) {
+      Alert.alert("Đăng ký thành công");
+    }
+  };
+
   return (
     <SafeAreaView style={styles.Container}>
-      <ImageBackground
-        source={require("../../assets/login&register/background.png")}
-        style={styles.background}
-        resizeMode="cover"
-      >
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View
+          style={{
+            paddingHorizontal: 20,
+            transform: [{ scaleY: 1 }],
+            paddingTop: "5%",
+          }}
+        >
+          <FontAwesome5
+            name="arrow-left"
+            size={20}
+            color="#000"
+            onPress={handleBackPress}
+          />
+        </View>
         <View style={styles.headercontainer}>
           <ImageBackground
             source={require("../../assets/logo.png")}
             style={styles.logo}
             imageStyle={styles.imglogo}
           />
-          <Text style={styles.textlogo}>UCM</Text>
+          <Text style={styles.textlogo}>Đăng Ký Tài Khoản</Text>
         </View>
         <View style={styles.bodycontainer}>
           <View style={styles.Infor}>
-            <TextInput style={styles.Inputinfor} placeholder="Nhập họ và tên " />
-            <TextInput style={styles.Inputinfor} placeholder="Nhập số điện thoại" />
-          </View>
+            <TextInput
+              style={[
+                styles.Inputinfor,
+                fullNameError ? { borderColor: "red" } : {},
+              ]}
+              placeholder="Nhập họ và tên"
+              maxLength={50}
+              value={fullName}
+              onChangeText={setFullName}
+            />
+            <View style={styles.errorContainer}>
+              {fullNameError ? (
+                <Text style={styles.errorText}>{fullNameError}</Text>
+              ) : null}
+            </View>
 
+            <TextInput
+              style={[
+                styles.Inputinfor,
+                phoneNumberError ? { borderColor: "red" } : {},
+              ]}
+              placeholder="Nhập số điện thoại"
+              keyboardType="phone-pad"
+              maxLength={15}
+              value={phoneNumber}
+              onChangeText={setPhoneNumber}
+            />
+            <View style={styles.errorContainer}>
+              {phoneNumberError ? (
+                <Text style={styles.errorText}>{phoneNumberError}</Text>
+              ) : null}
+            </View>
+          </View>
           <View style={styles.CheckBoxContainer}>
-            {options.map(option => (
+            {options.map((option) => (
               <View key={option} style={styles.Sex}>
                 <TouchableOpacity
                   style={[
                     styles.checkbox,
-                    selectedSex === option && styles.selectedCheckbox
+                    selectedSex === option && styles.selectedCheckbox,
                   ]}
                   onPress={() => pickSex(option)}
                 >
@@ -69,70 +159,108 @@ const RegisterScreen = () => {
             ))}
           </View>
           <View style={styles.Infor}>
-            <TextInput style={styles.Inputinfor} placeholder="Nhập Email" />
-            <TextInput style={styles.Inputinfor} placeholder="Nhập mật khẩu" secureTextEntry />
-            <TextInput style={styles.Inputinfor} placeholder="Nhập lại mật khẩu" secureTextEntry />
+            <TextInput
+              style={[
+                styles.Inputinfor,
+                emailError ? { borderColor: "red" } : {},
+              ]}
+              placeholder="Nhập Email"
+              maxLength={50}
+              keyboardType="email-address"
+              value={email}
+              onChangeText={setEmail}
+            />
+            <View style={styles.errorContainer}>
+              {emailError ? (
+                <Text style={styles.errorText}>{emailError}</Text>
+              ) : null}
+            </View>
+
+            <TextInput
+              style={[
+                styles.Inputinfor,
+                passwordError ? { borderColor: "red" } : {},
+              ]}
+              placeholder="Nhập mật khẩu"
+              secureTextEntry
+              maxLength={20}
+              value={password}
+              onChangeText={setPassword}
+            />
+            <View style={styles.errorContainer}>
+              {passwordError ? (
+                <Text style={styles.errorText}>{passwordError}</Text>
+              ) : null}
+            </View>
+
+            <TextInput
+              style={[
+                styles.Inputinfor,
+                confirmPasswordError ? { borderColor: "red" } : {},
+              ]}
+              placeholder="Nhập lại mật khẩu"
+              secureTextEntry
+              maxLength={20}
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+            />
+            <View style={styles.errorContainer}>
+              {confirmPasswordError ? (
+                <Text style={styles.errorText}>{confirmPasswordError}</Text>
+              ) : null}
+            </View>
+            <View style={styles.btnRegister}>
+              <TouchableOpacity
+                style={styles.button1}
+                onPress={handleRegisterPress}
+              >
+                <Text style={styles.buttonText}>Đăng Ký</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-        <View style={styles.btnRegister}>
-          <TouchableOpacity style={styles.button1} onPress={handleRegisterPress}>
-            <Text style={styles.buttonText}>Đăng Ký</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.Account}><Text>Bạn đã có tài khoản?</Text></View>
-        <View style={styles.btnLogin}>
-          <TouchableOpacity style={styles.button2} onPress={handleLoginPress}>
-          <Text style={[styles.buttonText, { color: 'black' }]}>Đăng Nhập</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.fogetPass}>
-            <TouchableOpacity onPress={handleforgotPassPress}>
-                <Text style={styles.fogetPassText}>Quên mật khẩu?</Text>
-           </TouchableOpacity>
-        </View>
-      </ImageBackground>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 export default RegisterScreen;
+
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
   },
   background: {
     flex: 1,
-    justifyContent: "center",
-  },
-  image: {
-    flex: 1,
-    justifyContent: "center",
   },
   scrollContainer: {
     flexGrow: 1,
+    justifyContent: "center",
   },
   headercontainer: {
-    height: "35%",
     justifyContent: "center",
     alignItems: "center",
+    marginVertical: 0,
   },
   logo: {
     height: 150,
     width: 150,
+    marginBottom: 10,
   },
   imglogo: {
     borderRadius: 125,
     overflow: "hidden",
   },
   textlogo: {
-    color: "#ffffff",
+    color: "#22668E",
     fontSize: 25,
     fontWeight: "bold",
+    paddingTop: "5%",
   },
   bodycontainer: {
     flex: 1,
     marginHorizontal: 15,
-    marginTop: 60,
+    marginTop: "10%",
   },
   Infor: {
     paddingHorizontal: 15,
@@ -141,92 +269,62 @@ const styles = StyleSheet.create({
     height: 40,
     paddingVertical: 8,
     paddingHorizontal: 15,
-    borderWidth: 1,
-    borderColor: 'gray',
+    borderWidth: 0,
+    borderColor: "gray",
     borderRadius: 25,
     fontSize: 16,
     marginVertical: 5,
-    backgroundColor: '#B8CCD7',
+    backgroundColor: "#B8CCD7",
   },
   CheckBoxContainer: {
     paddingHorizontal: 15,
-    flexDirection: 'row',
-    justifyContent:'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     paddingTop: 5,
+    paddingBottom: "2%",
   },
   Sex: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   selectedCheckbox: {
-    backgroundColor: '#007bff',
-    borderColor: '#007bff',
+    backgroundColor: "#007bff",
+    borderColor: "#007bff",
   },
   checkbox: {
     width: 25,
     height: 25,
     borderWidth: 2,
-    borderColor: '#B8CCD7',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    borderColor: "#B8CCD7",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
   },
   Option: {
     fontSize: 16,
     marginLeft: 5,
   },
   btnRegister: {
-    marginHorizontal: 15,
     height: 50,
-    justifyContent: 'center',
-    marginVertical: 10,
+    justifyContent: "center",
   },
   button1: {
-    backgroundColor: '#22668E',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    backgroundColor: "#22668E",
     borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
     marginHorizontal: 15,
   },
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-  Account:{
-   justifyContent:'center',
-   alignItems:'center',
-   fontWeight:"bold",
-   color:'Baclk'
+  errorContainer: {
+    height: 20, // Chiều cao cố định để không thay đổi kích thước
   },
-  btnLogin:{
-   marginHorizontal: 15,
-    height: 50,
-    justifyContent: 'center',
-    marginVertical: 10,
- },
- button2:{
-   backgroundColor: '#B8CCD7',
-   paddingVertical: 10,
-   paddingHorizontal: 20,
-   justifyContent:'center',
-   alignItems:'center',
-   borderRadius: 25,
-   height: '100%',
-   marginHorizontal: 15,
- },
- fogetPass:{
-   paddingHorizontal: 20,
-   justifyContent: 'center',
-   alignItems:'center',
- },
- fogetPassText:{
-   fontSize:18,
-   fontWeight: 'bold',
-   color: '#rgb(0, 0, 255)',
-   textDecorationLine:'underline',
- },
+  errorText: {
+    color: "red",
+  },
 });

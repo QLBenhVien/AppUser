@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { FontAwesome5 } from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -8,8 +9,8 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  ScrollView,
 } from "react-native";
+
 const CodeconfirmScreen = () => {
   const handleUpdatePress = () => {
     Alert.alert("Cập nhật thành công");
@@ -17,6 +18,10 @@ const CodeconfirmScreen = () => {
   const handleLoginPress = () => {
     Alert.alert("Chuyển trang");
   };
+  const handleBackPress = () => {
+    Alert.alert("Chuyển trang");
+  };
+
   return (
     <SafeAreaView style={styles.Container}>
       <ImageBackground
@@ -24,6 +29,20 @@ const CodeconfirmScreen = () => {
         style={styles.background}
         resizeMode="cover"
       >
+        <View
+          style={{
+            paddingHorizontal: 20,
+            transform: [{ scaleY: 1 }],
+            paddingTop: "5%",
+          }}
+        >
+          <FontAwesome5
+            name="arrow-left"
+            size={20}
+            color="#ffffff"
+            onPress={handleBackPress}
+          />
+        </View>
         <View style={styles.headercontainer}>
           <ImageBackground
             source={require("../../assets/logo.png")}
@@ -46,12 +65,36 @@ const CodeconfirmScreen = () => {
         </View>
         <View style={styles.bodycontainer}>
           <View style={styles.Infor}>
-            <TextInput style={styles.Inputinfor} />
-            <TextInput style={styles.Inputinfor} />
-            <TextInput style={styles.Inputinfor} />
-            <TextInput style={styles.Inputinfor} />
-            <TextInput style={styles.Inputinfor} />
-            <TextInput style={styles.Inputinfor} />
+            <TextInput
+              style={styles.Inputinfor}
+              keyboardType="numeric"
+              maxLength={1}
+            />
+            <TextInput
+              style={styles.Inputinfor}
+              keyboardType="numeric"
+              maxLength={1}
+            />
+            <TextInput
+              style={styles.Inputinfor}
+              keyboardType="numeric"
+              maxLength={1}
+            />
+            <TextInput
+              style={styles.Inputinfor}
+              keyboardType="numeric"
+              maxLength={1}
+            />
+            <TextInput
+              style={styles.Inputinfor}
+              keyboardType="numeric"
+              maxLength={1}
+            />
+            <TextInput
+              style={styles.Inputinfor}
+              keyboardType="numeric"
+              maxLength={1}
+            />
           </View>
           <View style={styles.btnLogin}>
             <TouchableOpacity
@@ -74,21 +117,17 @@ const CodeconfirmScreen = () => {
     </SafeAreaView>
   );
 };
+
 export default CodeconfirmScreen;
+
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
+    backgroundColor: "#22668E",
   },
   background: {
     flex: 1,
     justifyContent: "center",
-  },
-  image: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  scrollContainer: {
-    flexGrow: 1,
   },
   headercontainer: {
     height: "35%",
@@ -116,17 +155,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingTop: 80,
     flexDirection: "row",
+    width: "100%",
   },
   Inputinfor: {
-    width: 50,
+    width: "16%",
     height: 50,
     borderWidth: 1,
     borderColor: "gray",
     borderRadius: 5,
     fontSize: 16,
     backgroundColor: "#B8CCD7",
-    marginRight: 10,
-    paddingHorizontal: 15,
+    marginRight: 5,
+    textAlign: "center",
   },
   buttonText: {
     color: "#000000",
@@ -141,12 +181,11 @@ const styles = StyleSheet.create({
   },
   button2: {
     backgroundColor: "#22668e",
-    paddingHorizontal: 20,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
     height: "100%",
-    marginHorizontal: 15,
+    width: "104%",
   },
   back: {
     paddingHorizontal: 20,
