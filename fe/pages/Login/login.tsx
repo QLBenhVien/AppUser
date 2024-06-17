@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FontAwesome5 } from "@expo/vector-icons";
 import {
   Text,
   View,
@@ -10,15 +11,23 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const LoginScreen = () => {
+const LoginScreen = (props: {
+  navigation: { navigate: (arg0: string) => void };
+}) => {
+  console.log(props);
   const handleRegisterPress = () => {
-    Alert.alert("Đăng ký thành công");
+    props.navigation.navigate("Registor");
   };
   const handleLoginPress = () => {
     Alert.alert("Chuyển trang");
   };
   const handleforgotPassPress = () => {
+    props.navigation.navigate("ForgotPass");
+  };
+  const handleBackPress = () => {
     Alert.alert("Chuyển trang");
   };
 
@@ -78,6 +87,7 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
+    backgroundColor: "#22668E",
   },
   background: {
     flex: 1,
@@ -111,7 +121,7 @@ const styles = StyleSheet.create({
   bodycontainer: {
     flex: 1,
     marginHorizontal: 15,
-    marginTop: 60,
+    marginTop: "15%",
   },
   Infor: {
     paddingHorizontal: 15,
@@ -121,9 +131,9 @@ const styles = StyleSheet.create({
     height: 50,
     paddingVertical: 10,
     paddingHorizontal: 15,
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: "gray",
-    borderRadius: 5,
+    borderRadius: 15,
     fontSize: 16,
     marginVertical: 10,
     backgroundColor: "#B8CCD7",
@@ -159,7 +169,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     height: 50,
     justifyContent: "center",
-    marginVertical: 10,
+    marginVertical: "5%",
   },
   button2: {
     backgroundColor: "#22668e",
@@ -179,7 +189,8 @@ const styles = StyleSheet.create({
   fogetPassText: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#rgb(0, 0, 255)",
+    color: "#22668E",
     textDecorationLine: "underline",
+    marginBottom: "5%",
   },
 });
