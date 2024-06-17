@@ -1,20 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import LoginScreen from "./pages/Login/login";
+import SplashScreen from "./pages/Login/SplashScreen";
+import RegisterScreen from "./pages/Login/register";
+import ForgotScreen from "./pages/Login/forgotpassScreen";
+import CodeconfirmScreen from "./pages/Login/codeconfirm";
+import { useEffect, useState } from "react";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  // const [isShowSplash, setIsShowSplass] = useState(true);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsShowSplass(false);
+  //   }, 3000);
+  // });
+  // return <>{isShowSplash ? <SplashScreen /> : <LoginScreen />}</>;
+  return <ForgotScreen></ForgotScreen>;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({});
