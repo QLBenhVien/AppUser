@@ -15,8 +15,8 @@ export default function App() {
   //   }, 3000);
   // });
   // return <>{isShowSplash ? <SplashScreen /> : <LoginScreen />}</>;
-  return ( 
- <RegisterScreen></RegisterScreen>
-);
+  return(
+<CodeconfirmScreen></CodeconfirmScreen>
+  );
 }
 const styles = StyleSheet.create({});

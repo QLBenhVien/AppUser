@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { FontAwesome5 } from '@expo/vector-icons';
 import {
   Text,
   View,
@@ -20,11 +21,11 @@ const RegisterScreen: React.FC = () => {
       const [password, setPassword] = useState<string>('');
       const [confirmPassword, setConfirmPassword] = useState<string>('');
 
-       const [fullNameError, setFullNameError] = useState<string>('');
+      const [fullNameError, setFullNameError] = useState<string>('');
       const [phoneNumberError, setPhoneNumberError] = useState<string>('');
       const [emailError, setEmailError] = useState<string>('');
-        const [passwordError, setPasswordError] = useState<string>('');
-        const [confirmPasswordError, setConfirmPasswordError] = useState<string>('');
+      const [passwordError, setPasswordError] = useState<string>('');
+      const [confirmPasswordError, setConfirmPasswordError] = useState<string>('');
 
   const options = ['Nam', 'Nữ'];
 
@@ -32,13 +33,10 @@ const RegisterScreen: React.FC = () => {
     setSelectedSex(sex);
   }
   
-  const handleLoginPress = () => {
+  const handleBackPress = () => {
     Alert.alert('Chuyển trang');
   };
   
-  const handleforgotPassPress = () => {
-    Alert.alert('Chuyển trang');
-  };
 
   const handleRegisterPress = () => {
     let isValid = true;
@@ -86,18 +84,16 @@ const RegisterScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.Container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <ImageBackground
-          source={require("../../assets/login&register/background.png")}
-          style={styles.background}
-          resizeMode="cover"
-        >
+       
+        <View style={{paddingHorizontal:20,  transform: [{ scaleY: 1 }], paddingTop:'5%'}}><FontAwesome5 name="arrow-left" size={20} color="#000"  onPress={handleBackPress}/></View>
           <View style={styles.headercontainer}>
+             
             <ImageBackground
               source={require("../../assets/logo.png")}
               style={styles.logo}
               imageStyle={styles.imglogo}
             />
-            <Text style={styles.textlogo}>UCM</Text>
+            <Text style={styles.textlogo}>Đăng Ký Tài Khoản</Text>
           </View>
           <View style={styles.bodycontainer}>
             <View style={styles.Infor}>
@@ -193,27 +189,14 @@ const RegisterScreen: React.FC = () => {
               <View style={styles.errorContainer}>
                 {confirmPasswordError ? <Text style={styles.errorText}>{confirmPasswordError}</Text> : null}
               </View>
+              <View style={styles.btnRegister}>
+                <TouchableOpacity style={styles.button1} onPress={handleRegisterPress}>
+                   <Text style={styles.buttonText}>Đăng Ký</Text>
+                </TouchableOpacity>
+             </View>
             </View>
           </View>
-          <View style={styles.btnRegister}>
-            <TouchableOpacity style={styles.button1} onPress={handleRegisterPress}>
-              <Text style={styles.buttonText}>Đăng Ký</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.Account}>
-            <Text>Bạn đã có tài khoản?</Text>
-          </View>
-          <View style={styles.btnLogin}>
-            <TouchableOpacity style={styles.button2} onPress={handleLoginPress}>
-              <Text style={[styles.buttonText, { color: 'black' }]}>Đăng Nhập</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.fogetPass}>
-            <TouchableOpacity onPress={handleforgotPassPress}>
-              <Text style={styles.fogetPassText}>Quên mật khẩu?</Text>
-            </TouchableOpacity>
-          </View>
-        </ImageBackground>
+        
       </ScrollView>
     </SafeAreaView>
   );
@@ -247,14 +230,15 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   textlogo: {
-    color: "#ffffff",
+    color: "#000000",
     fontSize: 25,
     fontWeight: "bold",
+    paddingTop:'10%',
   },
   bodycontainer: {
     flex: 1,
     marginHorizontal: 15,
-    marginTop: '60%',
+    marginTop: '10%',
   },
   Infor: {
     paddingHorizontal: 15,
@@ -275,6 +259,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingTop: 5,
+    paddingBottom:'2%',
   },
   Sex: {
     flexDirection: 'row',
@@ -298,15 +283,12 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   btnRegister: {
-    marginHorizontal: 15,
     height: 50,
     justifyContent: 'center',
-    marginVertical: 10,
+
   },
   button1: {
     backgroundColor: '#22668E',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
@@ -317,39 +299,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
-  },
-  Account: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontWeight: "bold",
-    color: 'Black',
-  },
-  btnLogin: {
-    marginHorizontal: 15,
-    height: 50,
-    justifyContent: 'center',
-    marginVertical: 10,
-  },
-  button2: {
-    backgroundColor: '#B8CCD7',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 25,
-    height: '100%',
-    marginHorizontal: 15,
-  },
-  fogetPass: {
-    paddingHorizontal: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  fogetPassText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'rgb(0, 0, 255)',
-    textDecorationLine: 'underline',
   },
   errorContainer: {
     height: 20, // Chiều cao cố định để không thay đổi kích thước

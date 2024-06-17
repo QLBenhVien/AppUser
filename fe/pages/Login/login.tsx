@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FontAwesome5 } from '@expo/vector-icons';
 import {
   Text,
   View,
@@ -21,6 +22,9 @@ const LoginScreen = () => {
   const handleforgotPassPress = () => {
     Alert.alert("Chuyển trang");
   };
+  const handleBackPress = () => {
+    Alert.alert('Chuyển trang');
+  };
 
   return (
     <SafeAreaView style={styles.Container}>
@@ -29,6 +33,7 @@ const LoginScreen = () => {
         style={styles.background}
         resizeMode="cover"
       >
+        <View style={{paddingHorizontal:20,  transform: [{ scaleY: 1 }], paddingTop:'5%'}}><FontAwesome5 name="arrow-left" size={20} color="#ffffff" onPress={handleBackPress} /></View>
         <View style={styles.headercontainer}>
           <ImageBackground
             source={require("../../assets/logo.png")}

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { FontAwesome5 } from '@expo/vector-icons';
 import {
   Text,
   View,
@@ -8,8 +9,8 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  ScrollView,
 } from "react-native";
+
 const CodeconfirmScreen = () => {
   
   const handleUpdatePress = () => {
@@ -18,12 +19,17 @@ const CodeconfirmScreen = () => {
   const handleLoginPress = () => {
     Alert.alert("Chuyển trang");
   };
+  const handleBackPress = () => {
+    Alert.alert('Chuyển trang');
+  };
+
   return (
     <SafeAreaView style={styles.Container}>
       <ImageBackground
         source={require("../../assets/login&register/background.png")}
         style={styles.background}
         resizeMode="cover" >
+          <View style={{paddingHorizontal:20,  transform: [{ scaleY: 1 }], paddingTop:'5%'}}><FontAwesome5 name="arrow-left" size={20} color="#ffffff" onPress={handleBackPress}/></View>
         <View style={styles.headercontainer}>
           <ImageBackground
             source={require("../../assets/logo.png")}
@@ -31,37 +37,63 @@ const CodeconfirmScreen = () => {
             imageStyle={styles.imglogo}/>
           <Text style={styles.textlogo}>UCM</Text>
         </View>
-          <View style={{marginTop:70,justifyContent:'center',alignItems:'center',}}>
-            <Text style={{fontSize:20, fontWeight:'bold'}}> Nhập mã xác nhận</Text>
-          </View>
+        <View style={{marginTop:70,justifyContent:'center',alignItems:'center',}}>
+          <Text style={{fontSize:20, fontWeight:'bold'}}> Nhập mã xác nhận</Text>
+        </View>
         <View style={styles.bodycontainer}>
           <View style={styles.Infor}>
-            <TextInput style={styles.Inputinfor}/>
-            <TextInput style={styles.Inputinfor}/>
-            <TextInput style={styles.Inputinfor} />
-            <TextInput style={styles.Inputinfor}/>
-            <TextInput style={styles.Inputinfor}/>
-            <TextInput style={styles.Inputinfor}/>
+            <TextInput 
+              style={styles.Inputinfor} 
+              keyboardType="numeric" 
+              maxLength={1}
+            />
+            <TextInput 
+              style={styles.Inputinfor} 
+              keyboardType="numeric" 
+              maxLength={1}
+            />
+            <TextInput 
+              style={styles.Inputinfor} 
+              keyboardType="numeric" 
+              maxLength={1}
+            />
+            <TextInput 
+              style={styles.Inputinfor} 
+              keyboardType="numeric" 
+              maxLength={1}
+            />
+            <TextInput 
+              style={styles.Inputinfor} 
+              keyboardType="numeric" 
+              maxLength={1}
+            />
+            <TextInput 
+              style={styles.Inputinfor} 
+              keyboardType="numeric" 
+              maxLength={1}
+            />
           </View>
           <View style={styles.btnLogin}>
-          <TouchableOpacity style={styles.button2} onPress={handleUpdatePress}>
-            <Text style={[styles.buttonText, { color: "#ffffff" }]}>
-              Cập nhật
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.back}> 
+            <TouchableOpacity style={styles.button2} onPress={handleUpdatePress}>
+              <Text style={[styles.buttonText, { color: "#ffffff" }]}>
+                Cập nhật
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.back}> 
             <Text> Quay lại màn hình</Text>
             <TouchableOpacity onPress={handleLoginPress}>
               <Text style={styles.loginlink}> Đăng nhập</Text>
             </TouchableOpacity>
-        </View>
+          </View>
         </View>
       </ImageBackground>
     </SafeAreaView>
   );
 };
+
 export default CodeconfirmScreen;
+
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
@@ -69,13 +101,6 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     justifyContent: "center",
-  },
-  image: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  scrollContainer: {
-    flexGrow: 1,
   },
   headercontainer: {
     height: "35%",
@@ -114,7 +139,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "#B8CCD7",
     marginRight:5,
-    paddingHorizontal: 15,
+    textAlign: "center",
   },
   buttonText: {
     color: "#000000",
