@@ -10,16 +10,21 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const LoginScreen = () => {
+const LoginScreen = (props: {
+  navigation: { navigate: (arg0: string) => void };
+}) => {
+  console.log(props);
   const handleRegisterPress = () => {
-    Alert.alert("Đăng ký thành công");
+    props.navigation.navigate("Registor");
   };
   const handleLoginPress = () => {
     Alert.alert("Chuyển trang");
   };
   const handleforgotPassPress = () => {
-    Alert.alert("Chuyển trang");
+    props.navigation.navigate("ForgotPass");
   };
 
   return (
