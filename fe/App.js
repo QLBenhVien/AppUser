@@ -15,7 +15,6 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
 export const OurApp = () => {
   const Stack = createNativeStackNavigator();
   const [isShowSplash, setIsShowSplass] = useState(true);
