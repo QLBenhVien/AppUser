@@ -13,16 +13,26 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Toast from "react-native-toast-message";
 
 const LoginScreen = (props: {
-  navigation: { navigate: (arg0: string) => void };
+  navigation: {
+    replace(arg0: string): unknown;
+    navigate: (arg0: string) => void;
+  };
 }) => {
   console.log(props);
   const handleRegisterPress = () => {
     props.navigation.navigate("Registor");
   };
   const handleLoginPress = () => {
-    Alert.alert("Chuyển trang");
+    props.navigation.replace("InApp");
+
+    Toast.show({
+      type: "success",
+      text1: "Thông báo",
+      text2: "Đăng nhập thành công",
+    });
   };
   const handleforgotPassPress = () => {
     props.navigation.navigate("ForgotPass");
