@@ -144,6 +144,8 @@ export const InApp = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   backgroundColor: focused ? "#fff" : "#22668E",
+                  borderWidth: focused ? 2 : 0,
+                  borderColor: "#22668E",
                 }}
               >
                 {focused ? (
