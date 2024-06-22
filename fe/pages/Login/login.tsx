@@ -10,7 +10,7 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
-
+import { registerUser } from "/Users/macbook/Desktop/UMCCARE/fe/src/api";
 const LoginScreen = () => {
   const handleRegisterPress = () => {
     Alert.alert("Đăng ký thành công");

@@ -11,7 +11,7 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
-
+import { registerUser } from "/Users/macbook/Desktop/UMCCARE/fe/src/api";
 const RegisterScreen = () => {
   const [selectedSex, setSelectedSex] = useState<string | null>(null);
 

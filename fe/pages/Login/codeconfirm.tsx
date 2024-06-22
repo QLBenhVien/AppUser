@@ -12,12 +12,12 @@ import {
 } from "react-native";
 const CodeconfirmScreen = () => {
   
-  const handleUpdatePress = () => {
+  function handleUpdatePress() {
     Alert.alert("Cập nhật thành công");
-  };
-  const handleLoginPress = () => {
+  }
+  function handleLoginPress() {
     Alert.alert("Chuyển trang");
-  };
+  }
   return (
     <SafeAreaView style={styles.Container}>
       <ImageBackground
@@ -30,7 +30,7 @@ const CodeconfirmScreen = () => {
             style={styles.logo}
             imageStyle={styles.imglogo}/>
           <Text style={styles.textlogo}>UCM</Text>
-        </View>
+        </View>/Users/USERNAME/Library/Android/sdk.
           <View style={{marginTop:70,justifyContent:'center',alignItems:'center',}}>
             <Text style={{fontSize:20, fontWeight:'bold'}}> Nhập mã xác nhận</Text>
           </View>
