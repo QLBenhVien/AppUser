@@ -36,6 +36,8 @@ export default function App() {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
+      <StatusBar backgroundColor="#c540bf" style="dark" />
+
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
         initialRouteName="OurApp"
@@ -43,7 +45,6 @@ export default function App() {
         <Stack.Screen name="OurApp" component={OurApp} />
         <Stack.Screen name="InApp" component={InApp} />
       </Stack.Navigator>
-
       <Toast />
     </NavigationContainer>
   );
@@ -79,8 +80,8 @@ export const InApp = () => {
       left: 0,
       elevation: 0,
       height: "10%",
-      backgroundColor: "#fff", // sửa từ 'background' thành 'backgroundColor'
-      marginBottom: Platform.OS == "ios" ? "2%" : "0%",
+      backgroundColor: "#fff",
+      marginBottom: Platform.OS == "ios" ? "0" : "0%",
     },
   };
   return (
