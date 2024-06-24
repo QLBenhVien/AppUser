@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   Slidecontainer: {
-    height: height * 0.25,
+    height: height * 0.22,
     borderRadius: 20,
     paddingHorizontal: width * 0.05,
   },
@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   Inforcontainer: {
-    height: height * 0.15,
+    height: height * 0.17,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-around",
@@ -344,11 +344,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   recyleview: {
-    height: height * 0.3,
+    height: width * 0.65,
   },
   ///////
   eventcontainer: {
-    height: height * 0.9,
+    height: width * 1.9,
     backgroundColor: "#fff",
   },
   event: {
