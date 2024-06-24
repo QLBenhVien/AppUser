@@ -10,17 +10,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //thong bao
 import Toast from "react-native-toast-message";
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
 //client screens
 import TrangChu from "./pages/client/Home/TrangChuScreen";
 import DatLich from "./pages/client/datlich/DatLich";
 import PhieuKham from "./pages/client/phieukham/PhieuKham";
 import TaiKhoan from "./pages/client/taikhoan/TaiKhoan";
 import ThongBao from "./pages/client/thongbao/ThongBao";
-//
-
 //icon
 import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
