@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+
 const { width, height } = Dimensions.get("window");
 
 interface DataItem {
@@ -22,7 +22,6 @@ interface ListPhieuProps {
 }
 
 const ListPhieu: React.FC<ListPhieuProps> = ({ data }) => {
-  const navigation = useNavigation();
   const Renderitem = ({ item }: { item: DataItem }) => (
     <TouchableOpacity
       style={styles.container}
@@ -56,7 +55,6 @@ const ListPhieu: React.FC<ListPhieuProps> = ({ data }) => {
     </TouchableOpacity>
   );
   return (
-    
     <FlatList
       data={data}
       renderItem={Renderitem}

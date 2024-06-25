@@ -5,12 +5,13 @@ import {
   SafeAreaView,
   ImageBackground,
   StyleSheet,
+  ScrollView,
+  FlatList,
 } from "react-native";
 
 import Header from "../../../components/Header";
 import { StatusBar } from "expo-status-bar";
 import ListPhieu from "./components/ListPhieu";
-import DetailPhieuKham from "./DetailPhieuKham";
 const phieuData = [
   {
     room: "Phòng 25",
@@ -22,7 +23,7 @@ const phieuData = [
   },
   {
     room: "Phòng 21",
-    specialization: "Cấp cứu"
+    specialization: "Cấp cứu",
   },
   {
     room: "Phòng 23",
@@ -34,12 +35,10 @@ const phieuData = [
   },
 ];
 const PhieuKham = () => {
-  
-
   return (
     <SafeAreaView style={styles.Container}>
       <Header content="Phiếu khám bệnh" />
-      { <ListPhieu data={phieuData} />}
+      <ListPhieu data={phieuData} />
     </SafeAreaView>
   );
 };
