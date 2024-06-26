@@ -8,7 +8,6 @@ import {
   ScrollView,
   FlatList,
 } from "react-native";
-
 import Header from "../../../components/Header";
 import { StatusBar } from "expo-status-bar";
 import ListPhieu from "./components/ListPhieu";
