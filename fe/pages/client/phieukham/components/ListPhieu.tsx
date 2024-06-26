@@ -13,20 +13,19 @@ import {
 const { width, height } = Dimensions.get("window");
 
 interface DataItem {
+  id: Int16Array;
   room: string;
   specialization: string;
 }
 
 interface ListPhieuProps {
   data: DataItem[];
+  onPress: (item: DataItem) => void;
 }
 
-const ListPhieu: React.FC<ListPhieuProps> = ({ data }) => {
+const ListPhieu: React.FC<ListPhieuProps> = ({ data, onPress }) => {
   const Renderitem = ({ item }: { item: DataItem }) => (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => console.log(item)}
-    >
+    <TouchableOpacity style={styles.container} onPress={() => onPress(item.id)}>
       <View
         style={{
           height: "90%",
