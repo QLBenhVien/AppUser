@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import LoginScreen from "./pages/Login/login";
 import SplashScreen from "./pages/Login/SplashScreen";
 import RegisterScreen from "./pages/Login/register";
@@ -8,14 +8,45 @@ import CodeconfirmScreen from "./pages/Login/codeconfirm";
 import { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import DetailPhieuKham from "./pages/client/phieukham/DetailPhieuKham";
+//thong bao
+import Toast from "react-native-toast-message";
+
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+//client screens
+import TrangChu from "./pages/client/Home/TrangChuScreen";
+import DatLich from "./pages/client/datlich/DatLich";
+import PhieuKham from "./pages/client/phieukham/PhieuKham";
+import TaiKhoan from "./pages/client/taikhoan/TaiKhoan";
+import ThongBao from "./pages/client/thongbao/ThongBao";
+//icon
+import { Feather } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+//home mau den
+import { Fontisto } from "@expo/vector-icons";
+import { SimpleLineIcons } from "@expo/vector-icons";
+//
+
 export default function App() {
+  const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <OurApp />
+      <StatusBar backgroundColor="#c540bf" style="dark" />
+
+      <Stack.Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName="OurApp"
+      >
+        <Stack.Screen name="OurApp" component={OurApp} />
+        <Stack.Screen name="InApp" component={InApp} />
+      </Stack.Navigator>
+      <Toast />
     </NavigationContainer>
   );
 }
-
 export const OurApp = () => {
   const Stack = createNativeStackNavigator();
   const [isShowSplash, setIsShowSplass] = useState(true);
@@ -27,15 +58,172 @@ export const OurApp = () => {
   return isShowSplash ? (
     <SplashScreen />
   ) : (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Registor" component={RegisterScreen} />
       <Stack.Screen name="ForgotPass" component={ForgotScreen} />
     </Stack.Navigator>
+  );
+};
+
+export const InApp = () => {
+  const Tab = createBottomTabNavigator();
+  const screenOptions = {
+    tabBarShowLabel: false,
+    headerShown: false,
+    tabBarStyle: {
+      position: "absolute",
+      bottom: 0,
+      right: 0,
+      left: 0,
+      elevation: 0,
+      height: "10%",
+      backgroundColor: "#fff",
+      marginBottom: Platform.OS == "ios" ? "0" : "0%",
+    },
+  };
+  return (
+    <Tab.Navigator screenOptions={screenOptions}>
+      <Tab.Screen
+        name="TrangChu"
+        component={TrangChu}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                {focused ? (
+                  <Fontisto name="home" size={24} color="#22668E" />
+                ) : (
+                  <SimpleLineIcons name="home" size={24} color="black" />
+                )}
+                <Text
+                  style={{ fontSize: 12, color: focused ? "#22668E" : "#000" }}
+                >
+                  Trang chủ
+                </Text>
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="PhieuKham"
+        component={PhieuKham}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                {focused ? (
+                  <Ionicons name="clipboard" size={24} color="#22668E" />
+                ) : (
+                  <Ionicons name="clipboard-outline" size={24} color="black" />
+                )}
+                <Text
+                  style={{ fontSize: 12, color: focused ? "#22668E" : "#000" }}
+                >
+                  Phiếu khám
+                </Text>
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="DatLich"
+        component={DatLich}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View
+                style={{
+                  top: Platform.OS == "ios" ? -20 : -20,
+                  width: Platform.OS == "ios" ? 65 : 60,
+                  height: Platform.OS == "ios" ? 65 : 60,
+                  borderRadius: Platform.OS == "ios" ? 35 : 30,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: focused ? "#fff" : "#22668E",
+                  borderWidth: focused ? 2 : 0,
+                  borderColor: "#22668E",
+                }}
+              >
+                {focused ? (
+                  <AntDesign name="calendar" size={24} color="#22668E" />
+                ) : (
+                  <AntDesign name="calendar" size={24} color="#fff" />
+                )}
+                <Text
+                  style={{ fontSize: 12, color: focused ? "#22668E" : "#fff" }}
+                >
+                  Đặt lịch
+                </Text>
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="ThongBao"
+        component={ThongBao}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                {focused ? (
+                  <>
+                    <Ionicons name="notifications" size={24} color="#22668E" />
+                  </>
+                ) : (
+                  <Ionicons
+                    name="notifications-outline"
+                    size={24}
+                    color="black"
+                  />
+                )}
+
+                <Text
+                  style={{ fontSize: 12, color: focused ? "#22668E" : "#000" }}
+                >
+                  Thông báo
+                </Text>
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="TaiKhoan"
+        component={TaiKhoan}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                {focused ? (
+                  <>
+                    <MaterialCommunityIcons
+                      name="account"
+                      size={24}
+                      color="#22668E"
+                    />
+                  </>
+                ) : (
+                  <MaterialCommunityIcons
+                    name="account-outline"
+                    size={24}
+                    color="black"
+                  />
+                )}
+                <Text
+                  style={{ fontSize: 12, color: focused ? "#22668E" : "#000" }}
+                >
+                  Tài khoản
+                </Text>
+              </View>
+            );
+          },
+        }}
+      />
+    </Tab.Navigator>
   );
 };
 

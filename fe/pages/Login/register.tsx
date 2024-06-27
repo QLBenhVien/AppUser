@@ -12,6 +12,7 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
+import Toast from "react-native-toast-message";
 
 const RegisterScreen: React.FC = (props) => {
   const [selectedSex, setSelectedSex] = useState<string | null>(null);
@@ -76,7 +77,11 @@ const RegisterScreen: React.FC = (props) => {
     }
 
     if (isValid) {
-      Alert.alert("Đăng ký thành công");
+      Toast.show({
+        type: "success",
+        text1: "Hello",
+        text2: "This is some something 👋",
+      });
     }
   };
 
