@@ -4,7 +4,7 @@ import { RFPercentage } from "react-native-responsive-fontsize"; // Import RFPer
 
 const { width, height } = Dimensions.get("window");
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Header from "../../../CNPM_LT/fe/components/Header";
+import Header from "../../../components/Header";
 
 const DetailTaiKhoan = () => {
   const options = ["Nam", "Nữ"];
