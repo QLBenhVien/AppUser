@@ -14,6 +14,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Toast from "react-native-toast-message";
+import axios from "axios";
 
 const LoginScreen = (props: {
   navigation: {
@@ -22,17 +23,36 @@ const LoginScreen = (props: {
   };
 }) => {
   console.log(props);
+
   const handleRegisterPress = () => {
     props.navigation.navigate("Registor");
   };
-  const handleLoginPress = () => {
-    props.navigation.replace("InApp");
 
-    Toast.show({
-      type: "success",
-      text1: "Thông báo",
-      text2: "Đăng nhập thành công",
-    });
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleLoginPress = async () => {
+    await axios
+      .post("http://localhost:8080/user/dangnhap", {
+        email: email,
+        password: password,
+      })
+      .then(function (response) {
+        Toast.show({
+          type: "success",
+          text1: "Thông báo",
+          text2: "Đăng nhập thành công",
+        });
+
+        props.navigation.replace("InApp");
+      })
+      .catch(function (error) {
+        console.log(error);
+        Toast.show({
+          type: "error",
+          text1: "Không tìm thấy tài khoản của bạn",
+        });
+      });
   };
   const handleforgotPassPress = () => {
     props.navigation.navigate("ForgotPass");
@@ -60,9 +80,16 @@ const LoginScreen = (props: {
           <View style={styles.Infor}>
             <TextInput
               style={styles.Inputinfor}
-              placeholder="Nhập số điện thoại "
+              value={email}
+              onChangeText={setEmail}
+              placeholder="Nhập email "
             />
-            <TextInput style={styles.Inputinfor} placeholder="Mật khẩu" />
+            <TextInput
+              style={styles.Inputinfor}
+              value={password}
+              onChangeText={setPassword}
+              placeholder="Mật khẩu"
+            />
           </View>
         </View>
         <View style={styles.btnLogin}>
