@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   Ten: { type: String },
+  NgaySinh: { type: Date, default: null },
   DiaChi: { type: String, default: null },
   CCCD: { type: String, default: null },
   GioiTinh: { type: String, default: null },
