@@ -1,10 +1,26 @@
-import React from "react";
-import { Text, View, SafeAreaView, ScrollView, Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useContext } from "react";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 const { width, height } = Dimensions.get("window");
+import { UserContext } from "../../context/UserContext";
 
-const TaiKhoan = () => {
+const TaiKhoan = (props: any) => {
+  const { user } = useContext(UserContext);
+
+  console.log(props);
+  const handleDangXuat = () => {
+    props.navigation.navigate("OurApp", { screen: "Login" });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollContainer}>
@@ -20,16 +36,20 @@ const TaiKhoan = () => {
           </View>
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.infoText}>Trần Đức An</Text>
-          <Text style={styles.infoText}>0943547334</Text>
-          <Text style={styles.text}>TranDucAn23504@gmail.com</Text>
+          <Text style={styles.infoText}>{user.Ten ? user.Ten : ""}</Text>
+          <Text style={styles.infoText}>{user.SDT ? user.SDT : ""}</Text>
+          <Text style={styles.text}>{user.Email ? user.Email : ""}</Text>
         </View>
         <View style={styles.Bodycontainer}>
           <TouchableOpacity style={styles.menuItem}>
             <View style={styles.iconText}>
               <Text style={styles.menuText}>Lịch sử khám</Text>
             </View>
-            <MaterialIcons name="chevron-right" size={width * 0.09} color="gray" />
+            <MaterialIcons
+              name="chevron-right"
+              size={width * 0.09}
+              color="gray"
+            />
           </TouchableOpacity>
           <View style={styles.textseting}>
             <Text style={styles.sectionHeaderText}>Cài đặt chung</Text>
@@ -39,13 +59,21 @@ const TaiKhoan = () => {
               <View style={styles.iconText}>
                 <Text style={styles.menuText}>Thông tin tài khoản</Text>
               </View>
-              <MaterialIcons name="chevron-right" size={width * 0.09} color="gray" />
+              <MaterialIcons
+                name="chevron-right"
+                size={width * 0.09}
+                color="gray"
+              />
             </TouchableOpacity>
             <TouchableOpacity style={styles.menuItem}>
               <View style={styles.iconText}>
                 <Text style={styles.menuText}>Đổi Mật Khẩu</Text>
               </View>
-              <MaterialIcons name="chevron-right" size={width * 0.09} color="gray" />
+              <MaterialIcons
+                name="chevron-right"
+                size={width * 0.09}
+                color="gray"
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.textseting}>
@@ -56,45 +84,69 @@ const TaiKhoan = () => {
               <View style={styles.iconText}>
                 <Text style={styles.menuText}>Hướng dẫn sử dụng</Text>
               </View>
-              <MaterialIcons name="chevron-right" size={width * 0.09} color="gray" />
+              <MaterialIcons
+                name="chevron-right"
+                size={width * 0.09}
+                color="gray"
+              />
             </TouchableOpacity>
             <TouchableOpacity style={styles.menuItem}>
               <View style={styles.iconText}>
-                <Text style={styles.menuText}>Điều khoản và điều kiện sử dụng</Text>
+                <Text style={styles.menuText}>
+                  Điều khoản và điều kiện sử dụng
+                </Text>
               </View>
-              <MaterialIcons name="chevron-right" size={width * 0.09} color="gray" />
+              <MaterialIcons
+                name="chevron-right"
+                size={width * 0.09}
+                color="gray"
+              />
             </TouchableOpacity>
             <TouchableOpacity style={styles.menuItem}>
               <View style={styles.iconText}>
                 <Text style={styles.menuText}>Chính sách bảo mật</Text>
               </View>
-              <MaterialIcons name="chevron-right" size={width * 0.09} color="gray" />
+              <MaterialIcons
+                name="chevron-right"
+                size={width * 0.09}
+                color="gray"
+              />
             </TouchableOpacity>
             <TouchableOpacity style={styles.menuItem}>
               <View style={styles.iconText}>
                 <Text style={styles.menuText}>Quy định sử dụng</Text>
               </View>
-              <MaterialIcons name="chevron-right" size={width * 0.09} color="gray" />
+              <MaterialIcons
+                name="chevron-right"
+                size={width * 0.09}
+                color="gray"
+              />
             </TouchableOpacity>
             <TouchableOpacity style={styles.menuItem}>
               <View style={styles.iconText}>
                 <Text style={styles.menuText}>Các vấn đề thường gặp</Text>
               </View>
-              <MaterialIcons name="chevron-right" size={width * 0.09} color="gray" />
+              <MaterialIcons
+                name="chevron-right"
+                size={width * 0.09}
+                color="gray"
+              />
             </TouchableOpacity>
             <TouchableOpacity style={styles.menuItem}>
               <View style={styles.iconText}>
                 <Text style={styles.menuText}>Giới thiệu</Text>
               </View>
-              <MaterialIcons name="chevron-right" size={width * 0.09} color="gray" />
+              <MaterialIcons
+                name="chevron-right"
+                size={width * 0.09}
+                color="gray"
+              />
             </TouchableOpacity>
           </View>
         </View>
         <View style={styles.logoutContainer}>
           <View style={styles.btnlogout}>
-            <TouchableOpacity
-              style={styles.button1}
-            >
+            <TouchableOpacity style={styles.button1} onPress={handleDangXuat}>
               <Text style={styles.buttonText}>Đăng Xuất</Text>
             </TouchableOpacity>
           </View>
@@ -107,7 +159,7 @@ const TaiKhoan = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     paddingHorizontal: 10,
   },
   scrollContainer: {
@@ -134,24 +186,24 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: width * 0.2 / 2,
+    borderRadius: (width * 0.2) / 2,
     borderWidth: 3,
     borderColor: "white",
   },
   infoContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingTop: width * 0.1,
   },
   infoText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   text: {
     fontSize: 18,
     marginBottom: 10,
-    textDecorationLine: 'underline',
+    textDecorationLine: "underline",
   },
   Bodycontainer: {
     borderTopColor: "rgba(196, 234, 250, 0.3)",
@@ -159,13 +211,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   iconText: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   menuItem: {
-    justifyContent: 'space-between',
-    flexDirection: 'row',
+    justifyContent: "space-between",
+    flexDirection: "row",
     padding: width * 0.04,
   },
   menuText: {
@@ -179,14 +231,14 @@ const styles = StyleSheet.create({
   },
   textseting: {
     height: width * 0.1,
-    justifyContent: 'center',
+    justifyContent: "center",
     borderTopWidth: 15,
     borderColor: "rgba(196, 234, 250, 0.3)",
     paddingLeft: width * 0.04,
   },
   sectionHeaderText: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   khac: {
     borderTopColor: "rgba(196, 234, 250, 0.3)",
@@ -197,7 +249,7 @@ const styles = StyleSheet.create({
   logoutContainer: {
     height: height * 0.2,
     paddingTop: width * 0.1,
-    backgroundColor: 'rgba(196, 234, 250, 0.3)',
+    backgroundColor: "rgba(196, 234, 250, 0.3)",
   },
   btnlogout: {
     height: 60,

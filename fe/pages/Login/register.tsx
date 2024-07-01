@@ -13,6 +13,7 @@ import {
   ScrollView,
 } from "react-native";
 import Toast from "react-native-toast-message";
+import axios from "axios";
 
 const RegisterScreen: React.FC = (props) => {
   const [selectedSex, setSelectedSex] = useState<string | null>(null);
@@ -38,9 +39,10 @@ const RegisterScreen: React.FC = (props) => {
     props.navigation.goBack();
   };
 
-  const handleRegisterPress = () => {
+  const handleRegisterPress = async () => {
     let isValid = true;
 
+    //ten cua nguoi dung
     if (fullName.length < 3) {
       setFullNameError("Họ và tên phải có ít nhất 3 ký tự");
       isValid = false;
@@ -48,12 +50,12 @@ const RegisterScreen: React.FC = (props) => {
       setFullNameError("");
     }
 
-    if (phoneNumber.length < 10) {
-      setPhoneNumberError("Số điện thoại phải có ít nhất 10 ký tự");
-      isValid = false;
-    } else {
-      setPhoneNumberError("");
-    }
+    // if (phoneNumber.length < 10) {
+    //   setPhoneNumberError("Số điện thoại phải có ít nhất 10 ký tự");
+    //   isValid = false;
+    // } else {
+    //   setPhoneNumberError("");
+    // }
 
     if (!email.includes("@")) {
       setEmailError("Email không hợp lệ");
@@ -77,11 +79,30 @@ const RegisterScreen: React.FC = (props) => {
     }
 
     if (isValid) {
-      Toast.show({
-        type: "success",
-        text1: "Hello",
-        text2: "This is some something 👋",
-      });
+      console.log("da nhan click");
+      await axios
+        .post("http://localhost:8080/user/dangky", {
+          email: email,
+          password: password,
+          username: fullName,
+        })
+        .then(function (response) {
+          console.log(response);
+          Toast.show({
+            type: "success",
+            text1: "Đăng ký thành công",
+          });
+          setTimeout(() => {
+            props.navigation.navigate("Login");
+          }, 2000);
+        })
+        .catch(function (error) {
+          console.log(error);
+          Toast.show({
+            type: "error",
+            text1: "Lỗi hệ thống",
+          });
+        });
     }
   };
 
@@ -127,43 +148,6 @@ const RegisterScreen: React.FC = (props) => {
                 <Text style={styles.errorText}>{fullNameError}</Text>
               ) : null}
             </View>
-
-            <TextInput
-              style={[
-                styles.Inputinfor,
-                phoneNumberError ? { borderColor: "red" } : {},
-              ]}
-              placeholder="Nhập số điện thoại"
-              keyboardType="phone-pad"
-              maxLength={15}
-              value={phoneNumber}
-              onChangeText={setPhoneNumber}
-            />
-            <View style={styles.errorContainer}>
-              {phoneNumberError ? (
-                <Text style={styles.errorText}>{phoneNumberError}</Text>
-              ) : null}
-            </View>
-          </View>
-          <View style={styles.CheckBoxContainer}>
-            {options.map((option) => (
-              <View key={option} style={styles.Sex}>
-                <TouchableOpacity
-                  style={[
-                    styles.checkbox,
-                    selectedSex === option && styles.selectedCheckbox,
-                  ]}
-                  onPress={() => pickSex(option)}
-                >
-                  {selectedSex === option && (
-                    <Icon name="check" size={20} color="#fff" />
-                  )}
-                </TouchableOpacity>
-                <Text style={styles.Option}>{option}</Text>
-              </View>
-            ))}
-          </View>
-          <View style={styles.Infor}>
             <TextInput
               style={[
                 styles.Inputinfor,

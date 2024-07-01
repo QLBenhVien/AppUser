@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -13,6 +13,8 @@ import {
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Swiper from "react-native-swiper";
 import { RecyclerView, VerticalRecyclerView } from "./RecylerViewHome"; // Đã chỉnh sửa đường dẫn import
+//
+import { UserContext } from "../../context/UserContext";
 
 const { width, height } = Dimensions.get("window");
 
@@ -54,10 +56,13 @@ const dataEvents = [
 ];
 
 const TrangChu = () => {
+  const { user } = useContext(UserContext);
+
+  console.log(user);
+
   const handleEventPress = (item: any) => {
     console.log("Pressed item:", item);
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollContainer}>
@@ -79,7 +84,7 @@ const TrangChu = () => {
             >
               <Text style={{ color: "#fff" }}>Chào Bạn</Text>
               <Text style={{ color: "#fff", fontWeight: "bold" }}>
-                Nguyễn Thị Ngọc Hoài
+                {user ? user.Ten : "Vui lòng cập nhập tên"}
               </Text>
             </View>
           </View>
