@@ -42,12 +42,13 @@ const RegisterScreen: React.FC = (props) => {
   const handleRegisterPress = async () => {
     let isValid = true;
 
-    // if (fullName.length < 3) {
-    //   setFullNameError("Họ và tên phải có ít nhất 3 ký tự");
-    //   isValid = false;
-    // } else {
-    //   setFullNameError("");
-    // }
+    //ten cua nguoi dung
+    if (fullName.length < 3) {
+      setFullNameError("Họ và tên phải có ít nhất 3 ký tự");
+      isValid = false;
+    } else {
+      setFullNameError("");
+    }
 
     // if (phoneNumber.length < 10) {
     //   setPhoneNumberError("Số điện thoại phải có ít nhất 10 ký tự");
@@ -83,6 +84,7 @@ const RegisterScreen: React.FC = (props) => {
         .post("http://localhost:8080/user/dangky", {
           email: email,
           password: password,
+          username: fullName,
         })
         .then(function (response) {
           console.log(response);
@@ -131,6 +133,21 @@ const RegisterScreen: React.FC = (props) => {
         </View>
         <View style={styles.bodycontainer}>
           <View style={styles.Infor}>
+            <TextInput
+              style={[
+                styles.Inputinfor,
+                fullNameError ? { borderColor: "red" } : {},
+              ]}
+              placeholder="Nhập họ và tên"
+              maxLength={50}
+              value={fullName}
+              onChangeText={setFullName}
+            />
+            <View style={styles.errorContainer}>
+              {fullNameError ? (
+                <Text style={styles.errorText}>{fullNameError}</Text>
+              ) : null}
+            </View>
             <TextInput
               style={[
                 styles.Inputinfor,

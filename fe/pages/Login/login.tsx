@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
 import {
   Text,
@@ -16,12 +16,16 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Toast from "react-native-toast-message";
 import axios from "axios";
 
+import { UserContext } from "../context/UserContext";
+
 const LoginScreen = (props: {
   navigation: {
     replace(arg0: string): unknown;
     navigate: (arg0: string) => void;
   };
 }) => {
+  const { setUser } = useContext(UserContext);
+
   console.log(props);
 
   const handleRegisterPress = () => {
@@ -43,7 +47,8 @@ const LoginScreen = (props: {
           text1: "Thông báo",
           text2: "Đăng nhập thành công",
         });
-
+        const userData = response.data.data;
+        setUser(userData);
         props.navigation.replace("InApp");
       })
       .catch(function (error) {

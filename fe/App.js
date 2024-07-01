@@ -5,7 +5,7 @@ import SplashScreen from "./pages/Login/SplashScreen";
 import RegisterScreen from "./pages/Login/register";
 import ForgotScreen from "./pages/Login/forgotpassScreen";
 import CodeconfirmScreen from "./pages/Login/codeconfirm";
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import DetailPhieuKham from "./pages/client/phieukham/DetailPhieuKham";
@@ -30,21 +30,26 @@ import { Fontisto } from "@expo/vector-icons";
 import { SimpleLineIcons } from "@expo/vector-icons";
 //
 
+//context
+import { UserProvider } from "./pages/context/UserContext";
+
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
-    <NavigationContainer>
-      <StatusBar backgroundColor="#c540bf" style="dark" />
+    <UserProvider>
+      <NavigationContainer>
+        <StatusBar backgroundColor="#c540bf" style="dark" />
 
-      <Stack.Navigator
-        screenOptions={{ headerShown: false }}
-        initialRouteName="OurApp"
-      >
-        <Stack.Screen name="OurApp" component={OurApp} />
-        <Stack.Screen name="InApp" component={InApp} />
-      </Stack.Navigator>
-      <Toast />
-    </NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{ headerShown: false }}
+          initialRouteName="OurApp"
+        >
+          <Stack.Screen name="OurApp" component={OurApp} />
+          <Stack.Screen name="InApp" component={InApp} />
+        </Stack.Navigator>
+        <Toast />
+      </NavigationContainer>
+    </UserProvider>
   );
 }
 export const OurApp = () => {
@@ -66,7 +71,7 @@ export const OurApp = () => {
   );
 };
 
-export const InApp = () => {
+export const InApp = ({}) => {
   const Tab = createBottomTabNavigator();
   const screenOptions = {
     tabBarShowLabel: false,

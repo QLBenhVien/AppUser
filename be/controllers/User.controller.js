@@ -1,16 +1,16 @@
 const bcrypt = require("bcrypt");
 const TaiKhoan = require("../models/account");
 const { message } = require("antd");
-
+const BenhNhan = require("../models/BenhNhan");
 module.exports.hello = async (req, res) => {
   res.json("day laf duong link /user");
 };
 
 module.exports.dangkyTK = async (req, res, next) => {
   try {
+    const { email, password, username } = req.body;
     const userData = new TaiKhoan(req.body);
     console.log(userData);
-    const { email } = userData;
     console.log(email);
     const userExit = await TaiKhoan.findOne({ email });
 
@@ -23,7 +23,19 @@ module.exports.dangkyTK = async (req, res, next) => {
     userData.password = await bcrypt.hash(userData.password, salt);
 
     const saveUser = await userData.save();
-    res.status(200).json(saveUser);
+
+    const newBenhNhan = new BenhNhan({
+      Ten: username,
+      Email: email,
+      accountId: saveUser._id,
+    });
+
+    const saveBenhNhan = await newBenhNhan.save();
+    res.status(200).json({
+      message: "User registered successfully",
+      taiKhoan: saveUser,
+      benhNhan: saveBenhNhan,
+    });
   } catch (error) {
     res.status(500).json({ error: "internal sever error" });
   }
@@ -43,8 +55,12 @@ module.exports.dangnhap = async (req, res, next) => {
     if (!isMatch) {
       return res.status(400).json({ message: "invalid password." });
     }
-    res.status(200).json({ message: "login successfil" });
+    const idTK = user.id;
+    const benhnhan = await BenhNhan.findOne({ accountId: idTK });
+    res.status(200).json({ message: "login successfil", data: benhnhan });
   } catch (error) {
     res.status(500).json({ error: "internal server error" });
   }
 };
+
+module.exports.home = async (req, res, next) => {};
