@@ -1,5 +1,14 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Dimensions, SafeAreaView, TouchableOpacity, TextInput } from "react-native";
+import React, { useContext, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+  SafeAreaView,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 
 import { RFPercentage } from "react-native-responsive-fontsize"; // Import RFPercentage
 
@@ -7,23 +16,66 @@ const { width, height } = Dimensions.get("window");
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 import { UserContext } from "../../context/UserContext";
-const DetailTaiKhoan = () => {
+
+//fetch data
+import axios from "axios";
+import Toast from "react-native-toast-message";
+const DetailTaiKhoan = (props: any) => {
   const { user } = useContext(UserContext);
 
-  console.log(user);
+  //thong tin khach hang
+  const [name, Setname] = useState(user.Ten);
+  const [ngaySinh, Setngaysinh] = useState(user ? user.NgaySinh : "");
+  const [diaChi, Setdiachi] = useState(user ? user.DiaChi : "");
+  const [cccd, Setcccd] = useState(user ? user.CCCD : "");
+  const [gioiTinh, Setgioitinh] = useState(user ? user.GioiTinh : "");
+  const [SDT, SetSDT] = useState(user ? user.SDT : "");
+  const [Email, Setemail] = useState(user ? user.Email : "");
 
   const options = ["Nam", "Nữ"];
-  const [selectedSex, setSelectedSex] = useState("Nam");
+  const [selectedSex, setSelectedSex] = useState(user ? user.GioiTinh : "Nam");
 
   function pickSex(sex: string) {
     setSelectedSex(sex);
   }
 
+  const handleBack = () => {
+    props.navigation.goBack();
+  };
+
+  const handleCapnhap = () => {
+    axios
+      .put("http://localhost:8080/user/capnhapthongtin", {
+        Email: Email,
+        Ten: name,
+        NgaySinh: ngaySinh,
+        DiaChi: diaChi,
+        SDT: SDT,
+        GioiTinh: gioiTinh,
+        CCCD: cccd,
+      })
+      .then(function (res) {
+        Toast.show({
+          type: "success",
+          text1: "Cập nhập thành công",
+        });
+        props.navigation.goBack();
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity>
-          <MaterialIcons name="arrow-back" size={RFPercentage(4)} color="#FFFFFF" style={styles.headerIcon} />
+        <TouchableOpacity onPress={handleBack}>
+          <MaterialIcons
+            name="arrow-back"
+            size={RFPercentage(4)}
+            color="#FFFFFF"
+            style={styles.headerIcon}
+          />
         </TouchableOpacity>
         <View style={styles.headerTitleContainer}>
           <Text style={styles.headerTitle}>Chỉnh sửa thông tin</Text>
@@ -41,8 +93,11 @@ const DetailTaiKhoan = () => {
             </View>
           </View>
           <TouchableOpacity>
-            <Text style={[styles.changeAvatarText, { fontSize: RFPercentage(3) }]}>Đổi ảnh đại diện</Text>
-
+            <Text
+              style={[styles.changeAvatarText, { fontSize: RFPercentage(3) }]}
+            >
+              Đổi ảnh đại diện
+            </Text>
           </TouchableOpacity>
         </View>
 
@@ -52,41 +107,77 @@ const DetailTaiKhoan = () => {
 
         <View style={{ paddingBottom: height * 0.05 }}>
           <View style={styles.infoContainer}>
-            <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>Họ và tên:</Text>
-            <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>Trần Đức An</TextInput>
+            <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>
+              Họ và tên:
+            </Text>
+            <TextInput
+              value={name}
+              onChangeText={Setname}
+              style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}
+            ></TextInput>
 
             <View style={styles.separator}></View>
           </View>
 
           <View style={styles.infoContainer}>
-            <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>Ngày Sinh:</Text>
-            <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>23-05-2004</TextInput>
+            <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>
+              Ngày Sinh:
+            </Text>
+            <TextInput
+              value={ngaySinh}
+              onChangeText={Setngaysinh}
+              style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}
+            ></TextInput>
 
             <View style={styles.separator}></View>
           </View>
 
           <View style={styles.infoContainer}>
-            <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>Địa chỉ:</Text>
-            <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>Trường Xuân, Tháp Mười, Đồng Tháp</TextInput>
+            <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>
+              Địa chỉ:
+            </Text>
+            <TextInput
+              value={diaChi}
+              onChangeText={Setdiachi}
+              style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}
+            ></TextInput>
 
             <View style={styles.separator}></View>
           </View>
 
           <View style={styles.infoContainer}>
-            <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>CCCD:</Text>
-            <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>08723064487</TextInput>
+            <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>
+              CCCD:
+            </Text>
+            <TextInput
+              value={cccd}
+              onChangeText={Setcccd}
+              style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}
+            ></TextInput>
 
             <View style={styles.separator}></View>
           </View>
 
           <View style={styles.infoContainer}>
-            <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>SDT:</Text>
-            <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>0943547334</TextInput>
+            <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>
+              SDT:
+            </Text>
+            <TextInput
+              value={SDT}
+              onChangeText={SetSDT}
+              style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}
+            ></TextInput>
             <View style={styles.separator}></View>
           </View>
           <View style={styles.infoContainer}>
-            <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>Email:</Text>
-            <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}></TextInput>
+            <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>
+              Email:
+            </Text>
+            <TextInput
+              value={Email}
+              onChangeText={Setemail}
+              style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}
+            ></TextInput>
 
             <View style={styles.separator}></View>
           </View>
@@ -132,7 +223,7 @@ const DetailTaiKhoan = () => {
           }}
         >
           <View style={styles.btnUpdate}>
-            <TouchableOpacity style={styles.button2}>
+            <TouchableOpacity style={styles.button2} onPress={handleCapnhap}>
               <Text
                 style={[
                   styles.buttonText,
@@ -160,22 +251,22 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 10,
-    backgroundColor: '#22668E', // Adjust this color as needed
+    backgroundColor: "#22668E", // Adjust this color as needed
     paddingHorizontal: 10,
   },
   headerIcon: {},
   headerTitleContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   headerTitle: {
     fontSize: RFPercentage(2.5), // Adjust the size as needed
-    color: '#FFFFFF',
-    fontWeight: 'bold',
+    color: "#FFFFFF",
+    fontWeight: "bold",
   },
   headerContainer: {
     justifyContent: "center",

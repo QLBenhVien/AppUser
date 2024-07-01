@@ -66,7 +66,7 @@ module.exports.dangnhap = async (req, res, next) => {
 module.exports.home = async (req, res, next) => {};
 
 module.exports.Capnhapthongtin = async (req, res, next) => {
-  const { name, date, address, cccd, numberPhone, sex } = req.body;
+  const { name, date, address, cccd, numberPhone, sex, email } = req.body;
 
   if (!cccd) {
     return res
@@ -76,7 +76,7 @@ module.exports.Capnhapthongtin = async (req, res, next) => {
 
   try {
     const updatedUser = await BenhNhan.findOneAndUpdate(
-      { CCCD: cccd },
+      { Email: email },
       {
         Ten: name,
         NgaySinh: date,

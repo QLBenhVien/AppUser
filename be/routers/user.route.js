@@ -7,4 +7,5 @@ route.get("/", User.hello);
 route.post("/dangky", User.dangkyTK);
 route.post("/dangnhap", User.dangnhap);
 route.get("/trangchu", User.home);
+route.put("/capnhapthongtin", User.Capnhapthongtin);
 module.exports = route;
