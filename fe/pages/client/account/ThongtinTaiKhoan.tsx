@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView, Dimensions, SafeAreaView, TouchableOpacity, TextInput } from "react-native";
+
 import { RFPercentage } from "react-native-responsive-fontsize"; // Import RFPercentage
 
 const { width, height } = Dimensions.get("window");
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
+import { UserContext } from "../../context/UserContext";
 const DetailTaiKhoan = () => {
+  const { user } = useContext(UserContext);
+
+  console.log(user);
+
   const options = ["Nam", "Nữ"];
   const [selectedSex, setSelectedSex] = useState("Nam");
 
@@ -36,33 +42,40 @@ const DetailTaiKhoan = () => {
           </View>
           <TouchableOpacity>
             <Text style={[styles.changeAvatarText, { fontSize: RFPercentage(3) }]}>Đổi ảnh đại diện</Text>
+
           </TouchableOpacity>
         </View>
 
-        <Text style={[styles.sectionTitle, { fontSize: RFPercentage(2) }]}>Thông tin cá nhân</Text>
+        <Text style={[styles.sectionTitle, { fontSize: RFPercentage(2) }]}>
+          Thông tin cá nhân
+        </Text>
 
         <View style={{ paddingBottom: height * 0.05 }}>
           <View style={styles.infoContainer}>
             <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>Họ và tên:</Text>
             <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>Trần Đức An</TextInput>
+
             <View style={styles.separator}></View>
           </View>
 
           <View style={styles.infoContainer}>
             <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>Ngày Sinh:</Text>
             <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>23-05-2004</TextInput>
+
             <View style={styles.separator}></View>
           </View>
 
           <View style={styles.infoContainer}>
             <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>Địa chỉ:</Text>
             <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>Trường Xuân, Tháp Mười, Đồng Tháp</TextInput>
+
             <View style={styles.separator}></View>
           </View>
 
           <View style={styles.infoContainer}>
             <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>CCCD:</Text>
             <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>08723064487</TextInput>
+
             <View style={styles.separator}></View>
           </View>
 
@@ -74,11 +87,14 @@ const DetailTaiKhoan = () => {
           <View style={styles.infoContainer}>
             <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>Email:</Text>
             <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}></TextInput>
+
             <View style={styles.separator}></View>
           </View>
 
           <View style={styles.infoContainer}>
-            <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>Giới Tính:</Text>
+            <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>
+              Giới Tính:
+            </Text>
             <View style={styles.CheckBoxContainer}>
               {options.map((option) => (
                 <View key={option} style={styles.Sex}>
@@ -90,26 +106,44 @@ const DetailTaiKhoan = () => {
                     onPress={() => pickSex(option)}
                   >
                     {selectedSex === option && (
-                      <MaterialIcons name="check" size={RFPercentage(2)} color="#fff" />
+                      <MaterialIcons
+                        name="check"
+                        size={RFPercentage(2)}
+                        color="#fff"
+                      />
                     )}
                   </TouchableOpacity>
-                  <Text style={[styles.Option, { fontSize: RFPercentage(2.5) }]}>{option}</Text>
+                  <Text
+                    style={[styles.Option, { fontSize: RFPercentage(2.5) }]}
+                  >
+                    {option}
+                  </Text>
                 </View>
               ))}
             </View>
           </View>
         </View>
 
-        <View style={{ height: height * 0.2, justifyContent: 'center', backgroundColor: "rgba(196, 234, 250, 0.3)" }}>
+        <View
+          style={{
+            height: height * 0.2,
+            justifyContent: "center",
+            backgroundColor: "rgba(196, 234, 250, 0.3)",
+          }}
+        >
           <View style={styles.btnUpdate}>
             <TouchableOpacity style={styles.button2}>
-              <Text style={[styles.buttonText, { color: "#ffffff", fontSize: RFPercentage(2.5) }]}>
+              <Text
+                style={[
+                  styles.buttonText,
+                  { color: "#ffffff", fontSize: RFPercentage(2.5) },
+                ]}
+              >
                 Cập nhật
               </Text>
             </TouchableOpacity>
           </View>
         </View>
-
       </ScrollView>
     </SafeAreaView>
   );
@@ -118,7 +152,7 @@ const DetailTaiKhoan = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     paddingHorizontal: 10,
   },
   scrollContainer: {
@@ -160,7 +194,7 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: width * 0.3 / 2,
+    borderRadius: (width * 0.3) / 2,
     borderWidth: 3,
     borderColor: "white",
   },
@@ -218,12 +252,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fff",
-    borderRadius: width * 0.08 / 2,
+    borderRadius: (width * 0.08) / 2,
   },
   Option: {
     fontSize: 16,
     marginLeft: 5,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   buttonText: {
     color: "#000000",
