@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Dimensions, SafeAreaView, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Dimensions, SafeAreaView, TouchableOpacity, TextInput } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize"; // Import RFPercentage
 
 const { width, height } = Dimensions.get("window");
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Header from "../../../components/Header";
 
 const DetailTaiKhoan = () => {
   const options = ["Nam", "Nữ"];
@@ -16,7 +15,14 @@ const DetailTaiKhoan = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header content="Chỉnh sửa thông tin" />
+      <View style={styles.header}>
+        <TouchableOpacity>
+          <MaterialIcons name="arrow-back" size={RFPercentage(4)} color="#FFFFFF" style={styles.headerIcon} />
+        </TouchableOpacity>
+        <View style={styles.headerTitleContainer}>
+          <Text style={styles.headerTitle}>Chỉnh sửa thông tin</Text>
+        </View>
+      </View>
       <ScrollView style={styles.scrollContainer}>
         <View style={styles.headerContainer}>
           <View style={styles.avatarContainer}>
@@ -28,7 +34,7 @@ const DetailTaiKhoan = () => {
               />
             </View>
           </View>
-          <TouchableOpacity >
+          <TouchableOpacity>
             <Text style={[styles.changeAvatarText, { fontSize: RFPercentage(3) }]}>Đổi ảnh đại diện</Text>
           </TouchableOpacity>
         </View>
@@ -38,31 +44,36 @@ const DetailTaiKhoan = () => {
         <View style={{ paddingBottom: height * 0.05 }}>
           <View style={styles.infoContainer}>
             <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>Họ và tên:</Text>
-            <Text style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>Trần Đức An</Text>
+            <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>Trần Đức An</TextInput>
             <View style={styles.separator}></View>
           </View>
 
           <View style={styles.infoContainer}>
             <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>Ngày Sinh:</Text>
-            <Text style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>23-05-2004</Text>
+            <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>23-05-2004</TextInput>
             <View style={styles.separator}></View>
           </View>
 
           <View style={styles.infoContainer}>
             <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>Địa chỉ:</Text>
-            <Text style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>Trường Xuân, Tháp Mười, Đồng Tháp</Text>
+            <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>Trường Xuân, Tháp Mười, Đồng Tháp</TextInput>
             <View style={styles.separator}></View>
           </View>
 
           <View style={styles.infoContainer}>
             <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>CCCD:</Text>
-            <Text style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>08723064487</Text>
+            <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>08723064487</TextInput>
             <View style={styles.separator}></View>
           </View>
 
           <View style={styles.infoContainer}>
             <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>SDT:</Text>
-            <Text style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>0943547334</Text>
+            <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}>0943547334</TextInput>
+            <View style={styles.separator}></View>
+          </View>
+          <View style={styles.infoContainer}>
+            <Text style={[styles.infoLabel, { fontSize: RFPercentage(2.5) }]}>Email:</Text>
+            <TextInput style={[styles.infoValue, { fontSize: RFPercentage(2.5) }]}></TextInput>
             <View style={styles.separator}></View>
           </View>
 
@@ -113,6 +124,24 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flex: 1,
     paddingBottom: 10,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    backgroundColor: '#22668E', // Adjust this color as needed
+    paddingHorizontal: 10,
+  },
+  headerIcon: {},
+  headerTitleContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerTitle: {
+    fontSize: RFPercentage(2.5), // Adjust the size as needed
+    color: '#FFFFFF',
+    fontWeight: 'bold',
   },
   headerContainer: {
     justifyContent: "center",
