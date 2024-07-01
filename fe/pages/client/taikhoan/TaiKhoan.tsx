@@ -55,7 +55,14 @@ const TaiKhoan = (props: any) => {
             <Text style={styles.sectionHeaderText}>Cài đặt chung</Text>
           </View>
           <View style={styles.chung}>
-            <TouchableOpacity style={styles.menuItem}>
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => {
+                props.navigation.navigate("naviTK", {
+                  screen: "ThongTinTaiKhoan",
+                });
+              }}
+            >
               <View style={styles.iconText}>
                 <Text style={styles.menuText}>Thông tin tài khoản</Text>
               </View>

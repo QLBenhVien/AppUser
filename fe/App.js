@@ -33,6 +33,9 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 //context
 import { UserProvider } from "./pages/context/UserContext";
 
+//navigation page
+import AppNavigation from "./pages/client/AppNavigation";
+
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
@@ -46,6 +49,7 @@ export default function App() {
         >
           <Stack.Screen name="OurApp" component={OurApp} />
           <Stack.Screen name="InApp" component={InApp} />
+          <Stack.Screen name="naviTK" component={AppNavigation} />
         </Stack.Navigator>
         <Toast />
       </NavigationContainer>
