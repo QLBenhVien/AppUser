@@ -68,10 +68,10 @@ module.exports.home = async (req, res, next) => {};
 module.exports.Capnhapthongtin = async (req, res, next) => {
   const { name, date, address, cccd, numberPhone, sex, email } = req.body;
 
-  if (!cccd) {
+  if (!email) {
     return res
       .status(400)
-      .json({ message: "CCCD is required to update information." });
+      .json({ message: "email is required to update information." });
   }
 
   try {
