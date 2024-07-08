@@ -35,6 +35,11 @@ import { UserProvider } from "./pages/context/UserContext";
 
 //navigation page
 import AppNavigation from "./pages/client/AppNavigation";
+import ThongTinDatLichScreen from "./pages/client/datlich/ThongtinDatlich";
+import DetailTaiKhoan from "./pages/client/account/ThongtinTaiKhoan";
+import EditThongTinDatLichScreen from "./pages/client/datlich/ChinhSuaThongTinDatKham";
+import DatKhamBSScreen from "./pages/client/datlich/DatKhamBS";
+import DatlichNgayScreen from "./pages/client/datlich/DatkhamNgay";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -67,11 +72,12 @@ export const OurApp = () => {
   return isShowSplash ? (
     <SplashScreen />
   ) : (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Registor" component={RegisterScreen} />
-      <Stack.Screen name="ForgotPass" component={ForgotScreen} />
-    </Stack.Navigator>
+    // <Stack.Navigator screenOptions={{ headerShown: false }}>
+    //   <Stack.Screen name="Login" component={LoginScreen} />
+    //   <Stack.Screen name="Registor" component={RegisterScreen} />
+    //   <Stack.Screen name="ForgotPass" component={ForgotScreen} />
+    // </Stack.Navigator>
+   <DatKhamBSScreen/>
   );
 };
 

@@ -16,8 +16,7 @@ const DatLich = () => {
         <View style={styles.headercontainer}>
           <Text style={styles.headerText}>Đặt lịch khám</Text>
         </View>
-        
-       
+      
         <TouchableOpacity style={styles.DatlichDate}>
           <View style={styles.imageContainer}>
             <Image
