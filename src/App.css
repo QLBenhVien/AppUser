@@ -1,0 +1,48 @@
+/* src/App.css */
+.AppContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: url('./assets/background_img.png') no-repeat center center fixed;
+  background-size: cover;
+  padding: 20px; 
+}
+
+.ContentContainer {
+  display: flex;
+  flex: 1;
+  margin-top: 70px; 
+}
+
+.LeftContainer {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  
+  justify-content: top;
+  padding: 20px;
+}
+
+.RightContainer {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.DoctorImage {
+  position: absolute;
+  bottom: 150px;
+  right: 220px;
+  height: 70%;
+}
+
+.WelcomeText {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  
+  font-weight: bold;
+  font-style: italic;
+}
