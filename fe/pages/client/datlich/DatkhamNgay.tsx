@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Text,
   View,
@@ -19,7 +19,12 @@ import TimeSlotSelectionModal from "./Compopup/TimeSlotSelectionModal";
 
 const { width, height } = Dimensions.get("window");
 
+import { UserContext } from "../../context/UserContext";
+import axios from "axios";
+
 const DatlichNgayScreen = (props: any) => {
+  const { user } = useContext(UserContext);
+
   const [dateListVisible, setDateListVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [dates, setDates] = useState([
@@ -32,6 +37,7 @@ const DatlichNgayScreen = (props: any) => {
   const [specialtyListVisible, setSpecialtyListVisible] = useState(false);
   const [selectedSpecialty, setSelectedSpecialty] = useState("");
   // xet api
+
   const [specialties, setSpecialties] = useState([
     "Nội khoa",
     "Ngoại khoa",
@@ -39,6 +45,19 @@ const DatlichNgayScreen = (props: any) => {
     "Tai mũi họng",
     "Răng hàm mặt",
   ]);
+
+  // useEffect(() => {
+  //   axios
+  //     .put("localhost:8080/user/dangkykhambenh/theongay")
+  //     .then(function (res) {
+  //       setSpecialties(res.data.khoas);
+  //     })
+  //     .catch(function (err) {
+  //       console.log(err);
+  //     });
+  // }, []);
+
+  //
 
   const [timeSlotListVisible, setTimeSlotListVisible] = useState(false);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
@@ -128,7 +147,7 @@ const DatlichNgayScreen = (props: any) => {
               color="#22668E"
             />
             <View style={styles.textContainer}>
-              <Text style={styles.infoTitle}>Nguyễn Thị Ngọc Hoài</Text>
+              <Text style={styles.infoTitle}>{user.Ten}</Text>
             </View>
           </View>
           <View style={styles.infoItem}>

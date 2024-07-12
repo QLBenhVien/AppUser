@@ -8,4 +8,7 @@ route.post("/dangky", User.dangkyTK);
 route.post("/dangnhap", User.dangnhap);
 route.get("/trangchu", User.home);
 route.put("/capnhapthongtin", User.Capnhapthongtin);
+
+// dang ky kham benh pages
+route.get("/dangkykhambenh/theongay", User.Theongay);
 module.exports = route;

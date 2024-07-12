@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const TaiKhoan = require("../models/account");
 const { message } = require("antd");
 const BenhNhan = require("../models/BenhNhan");
+const Khoa = require("../models/Khoa");
 module.exports.hello = async (req, res) => {
   res.json("day laf duong link /user");
 };
@@ -101,13 +102,26 @@ module.exports.Capnhapthongtin = async (req, res, next) => {
   }
 };
 
-//page dang ky
+//////////////////////////////Dangkykhambenh/////////////////////////////////////////
 
-module.exports.Dangkybenh = async (req, res, next) => {};
-
-module.exports.Dangkykhambenh = async (req, res, next) => {
+// page dang ky khambenh / bacsi
+// localhost:8080/user/dangkykhambenh/theobacsi
+module.exports.Theobacsi = async (req, res, next) => {
   const {} = req.body;
 };
+
+// page dang ky khambenh / ngay -> ket qua tra ve la khoa
+// localhost:8080/user/dangkykhambenh/theongay
+module.exports.Theongay = async (req, res, next) => {
+  try {
+    const khoas = await Khoa.find();
+    res.status(200).json({ dataKhoa: khoas });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching khoa information", error });
+  }
+};
+
+//////////////////////////////////////////////////////////////////////////////////
 
 // thong bao
 

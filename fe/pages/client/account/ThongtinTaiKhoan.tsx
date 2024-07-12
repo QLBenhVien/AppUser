@@ -43,8 +43,8 @@ const DetailTaiKhoan = (props: any) => {
     props.navigation.goBack();
   };
 
-  const handleCapnhap = () => {
-    axios
+  const handleCapnhap = async () => {
+    await axios
       .put("http://localhost:8080/user/capnhapthongtin", {
         Email: Email,
         Ten: name,

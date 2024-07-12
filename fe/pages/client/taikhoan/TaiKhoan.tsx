@@ -257,6 +257,7 @@ const styles = StyleSheet.create({
     height: height * 0.2,
     paddingTop: width * 0.1,
     backgroundColor: "rgba(196, 234, 250, 0.3)",
+    marginBottom: width * 0.15,
   },
   btnlogout: {
     height: 60,
