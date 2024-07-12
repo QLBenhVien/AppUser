@@ -1,14 +1,29 @@
-import React, { useState } from "react";
-import { Text, View, SafeAreaView, StyleSheet, Dimensions, TouchableOpacity, ScrollView, Image, TextInput, Alert } from "react-native";
+import React, { useState, useContext } from "react";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  TextInput,
+  Alert,
+} from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { MaterialIcons } from "@expo/vector-icons";
 import DateSelectionModal from "./Compopup/DateSelectionModal";
-import DoctorSelectionModal from "./Compopup/DoctorSelectionModal"; 
+import DoctorSelectionModal from "./Compopup/DoctorSelectionModal";
 import TimeSlotSelectionModal from "./Compopup/TimeSlotSelectionModal";
 
 const { width, height } = Dimensions.get("window");
 
-const DatlichBSScreen = () => {
+import { UserContext } from "../../context/UserContext";
+
+const DatlichBSScreen = (props: any) => {
+  const { user } = useContext(UserContext);
+
   const [dateListVisible, setDateListVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [dates, setDates] = useState([
@@ -18,12 +33,12 @@ const DatlichBSScreen = () => {
     "14-08-2024",
     "14-08-2024",
     "14-08-2024",
-    
   ]);
 
   const [doctorListVisible, setDoctorListVisible] = useState(false); // Updated state and function names
   const [selectedDoctor, setSelectedDoctor] = useState(""); // Updated state and function names
-  const [doctors, setDoctors] = useState([ // Updated state and function names
+  const [doctors, setDoctors] = useState([
+    // Updated state and function names
     "Bác sĩ A",
     "Bác sĩ B",
     "Bác sĩ C",
@@ -52,16 +67,16 @@ const DatlichBSScreen = () => {
     hideDateList();
   };
 
-  const showDoctorList = () => { 
+  const showDoctorList = () => {
     setDoctorListVisible(true);
   };
 
-  const hideDoctorList = () => { 
-    setDoctorListVisible(false); 
+  const hideDoctorList = () => {
+    setDoctorListVisible(false);
   };
 
-  const handleSelectDoctor = (doctor: string) => { 
-    setSelectedDoctor(doctor); 
+  const handleSelectDoctor = (doctor: string) => {
+    setSelectedDoctor(doctor);
     hideDoctorList();
   };
 
@@ -81,7 +96,10 @@ const DatlichBSScreen = () => {
   const handleBookAppointment = () => {
     // Replace with actual logic to book appointment
     if (selectedDate && selectedDoctor && selectedTimeSlot) {
-      Alert.alert("Đặt lịch khám thành công!", `Bạn đã đặt lịch khám vào ngày ${selectedDate}, bác sĩ ${selectedDoctor}, giờ ${selectedTimeSlot}.`);
+      Alert.alert(
+        "Đặt lịch khám thành công!",
+        `Bạn đã đặt lịch khám vào ngày ${selectedDate}, bác sĩ ${selectedDoctor}, giờ ${selectedTimeSlot}.`
+      );
     } else {
       Alert.alert("Lỗi", "Vui lòng chọn đầy đủ thông tin để đặt lịch khám.");
     }
@@ -90,7 +108,11 @@ const DatlichBSScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.goBack();
+          }}
+        >
           <MaterialIcons
             name="arrow-back"
             size={RFPercentage(4)}
@@ -111,7 +133,7 @@ const DatlichBSScreen = () => {
               color="#22668E"
             />
             <View style={styles.textContainer}>
-              <Text style={styles.infoTitle}>Nguyễn Thị Ngọc Hoài</Text>
+              <Text style={styles.infoTitle}>{user.Ten}</Text>
             </View>
           </View>
           <View style={styles.infoItem}>
@@ -132,7 +154,10 @@ const DatlichBSScreen = () => {
               source={require("../../../assets/Datlich/Date.jpg")}
               style={styles.iconImage}
             />
-            <TouchableOpacity style={styles.inputContainer} onPress={showDateList}>
+            <TouchableOpacity
+              style={styles.inputContainer}
+              onPress={showDateList}
+            >
               <TextInput
                 placeholder="Chọn ngày khám"
                 style={styles.textInput}
@@ -156,7 +181,10 @@ const DatlichBSScreen = () => {
               size={RFPercentage(7.5)}
               color="#22668E"
             />
-            <TouchableOpacity style={styles.inputContainer} onPress={showDoctorList}>
+            <TouchableOpacity
+              style={styles.inputContainer}
+              onPress={showDoctorList}
+            >
               <TextInput
                 placeholder="Chọn của Bác sĩ"
                 style={styles.textInput}
@@ -180,7 +208,10 @@ const DatlichBSScreen = () => {
               size={RFPercentage(7.5)}
               color="#22668E"
             />
-            <TouchableOpacity style={styles.inputContainer} onPress={showTimeSlotList}>
+            <TouchableOpacity
+              style={styles.inputContainer}
+              onPress={showTimeSlotList}
+            >
               <TextInput
                 placeholder="Chọn giờ khám"
                 style={styles.textInput}
@@ -196,8 +227,11 @@ const DatlichBSScreen = () => {
             </TouchableOpacity>
           </View>
         </View>
-        
-        <TouchableOpacity style={styles.bookButton} onPress={handleBookAppointment}>
+
+        <TouchableOpacity
+          style={styles.bookButton}
+          onPress={handleBookAppointment}
+        >
           <Text style={styles.bookButtonText}>Đặt Khám</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -273,13 +307,13 @@ const styles = StyleSheet.create({
   },
   infoTitle: {
     fontSize: RFPercentage(3),
-    fontWeight: '500',
+    fontWeight: "500",
     color: "#22668E",
     paddingBottom: width * 0.05,
   },
   datLichContainer: {
     marginTop: height * 0.03,
-    alignItems: 'center',
+    alignItems: "center",
     paddingHorizontal: height * 0.02,
   },
   iconImage: {
@@ -291,9 +325,9 @@ const styles = StyleSheet.create({
     marginLeft: width * 0.05,
     borderBottomWidth: 1,
     borderBottomColor: "#22668E",
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   textInput: {
     fontSize: RFPercentage(2.5),
@@ -311,7 +345,7 @@ const styles = StyleSheet.create({
     marginHorizontal: width * 0.05,
     marginTop: height * 0.03,
     paddingVertical: height * 0.02,
-    borderRadius: width*0.05,
+    borderRadius: width * 0.05,
   },
   bookButtonText: {
     color: "#FFFFFF",

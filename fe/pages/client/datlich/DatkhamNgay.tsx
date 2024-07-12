@@ -1,5 +1,16 @@
 import React, { useState } from "react";
-import { Text, View, SafeAreaView, StyleSheet, Dimensions, TouchableOpacity, ScrollView, Image, TextInput, Alert } from "react-native";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  TextInput,
+  Alert,
+} from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { MaterialIcons } from "@expo/vector-icons";
 import DateSelectionModal from "./Compopup/DateSelectionModal";
@@ -8,7 +19,7 @@ import TimeSlotSelectionModal from "./Compopup/TimeSlotSelectionModal";
 
 const { width, height } = Dimensions.get("window");
 
-const DatlichNgayScreen = () => {
+const DatlichNgayScreen = (props: any) => {
   const [dateListVisible, setDateListVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [dates, setDates] = useState([
@@ -20,11 +31,13 @@ const DatlichNgayScreen = () => {
 
   const [specialtyListVisible, setSpecialtyListVisible] = useState(false);
   const [selectedSpecialty, setSelectedSpecialty] = useState("");
+  // xet api
   const [specialties, setSpecialties] = useState([
     "Nội khoa",
     "Ngoại khoa",
     "Phụ khoa",
     "Tai mũi họng",
+    "Răng hàm mặt",
   ]);
 
   const [timeSlotListVisible, setTimeSlotListVisible] = useState(false);
@@ -78,7 +91,10 @@ const DatlichNgayScreen = () => {
   const handleBookAppointment = () => {
     // Replace with actual logic to book appointment
     if (selectedDate && selectedSpecialty && selectedTimeSlot) {
-      Alert.alert("Đặt lịch khám thành công!", `Bạn đã đặt lịch khám vào ngày ${selectedDate}, chuyên khoa ${selectedSpecialty}, giờ ${selectedTimeSlot}.`);
+      Alert.alert(
+        "Đặt lịch khám thành công!",
+        `Bạn đã đặt lịch khám vào ngày ${selectedDate}, chuyên khoa ${selectedSpecialty}, giờ ${selectedTimeSlot}.`
+      );
     } else {
       Alert.alert("Lỗi", "Vui lòng chọn đầy đủ thông tin để đặt lịch khám.");
     }
@@ -87,7 +103,11 @@ const DatlichNgayScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.goBack();
+          }}
+        >
           <MaterialIcons
             name="arrow-back"
             size={RFPercentage(4)}
@@ -129,7 +149,10 @@ const DatlichNgayScreen = () => {
               source={require("../../../assets/Datlich/Date.jpg")}
               style={styles.iconImage}
             />
-            <TouchableOpacity style={styles.inputContainer} onPress={showDateList}>
+            <TouchableOpacity
+              style={styles.inputContainer}
+              onPress={showDateList}
+            >
               <TextInput
                 placeholder="Chọn ngày khám"
                 style={styles.textInput}
@@ -152,7 +175,10 @@ const DatlichNgayScreen = () => {
               source={require("../../../assets/Datlich/Doctor.jpg")}
               style={styles.iconImage}
             />
-            <TouchableOpacity style={styles.inputContainer} onPress={showSpecialtyList}>
+            <TouchableOpacity
+              style={styles.inputContainer}
+              onPress={showSpecialtyList}
+            >
               <TextInput
                 placeholder="Chọn chuyên khoa"
                 style={styles.textInput}
@@ -176,7 +202,10 @@ const DatlichNgayScreen = () => {
               size={RFPercentage(7.5)}
               color="#22668E"
             />
-            <TouchableOpacity style={styles.inputContainer} onPress={showTimeSlotList}>
+            <TouchableOpacity
+              style={styles.inputContainer}
+              onPress={showTimeSlotList}
+            >
               <TextInput
                 placeholder="Chọn giờ khám"
                 style={styles.textInput}
@@ -192,8 +221,11 @@ const DatlichNgayScreen = () => {
             </TouchableOpacity>
           </View>
         </View>
-        
-        <TouchableOpacity style={styles.bookButton} onPress={handleBookAppointment}>
+
+        <TouchableOpacity
+          style={styles.bookButton}
+          onPress={handleBookAppointment}
+        >
           <Text style={styles.bookButtonText}>Đặt Khám</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -269,13 +301,13 @@ const styles = StyleSheet.create({
   },
   infoTitle: {
     fontSize: RFPercentage(3),
-    fontWeight: '500',
+    fontWeight: "500",
     color: "#22668E",
     paddingBottom: width * 0.05,
   },
   datLichContainer: {
     marginTop: height * 0.03,
-    alignItems: 'center',
+    alignItems: "center",
     paddingHorizontal: height * 0.02,
   },
   iconImage: {
@@ -287,9 +319,9 @@ const styles = StyleSheet.create({
     marginLeft: width * 0.05,
     borderBottomWidth: 1,
     borderBottomColor: "#22668E",
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   textInput: {
     fontSize: RFPercentage(2.5),
@@ -307,7 +339,7 @@ const styles = StyleSheet.create({
     marginHorizontal: width * 0.05,
     marginTop: height * 0.03,
     paddingVertical: height * 0.02,
-    borderRadius: width*0.05,
+    borderRadius: width * 0.05,
   },
   bookButtonText: {
     color: "#FFFFFF",

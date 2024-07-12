@@ -5,11 +5,14 @@ const database = require("./config/database.js");
 const bodyParser = require("body-parser"); // unistall
 const route = require("./routers/user.route.js");
 dotnet.config();
+const cors = require("cors");
 
 // Middleware để phân tích cú pháp yêu cầu có nội dung JSON
 app.use(express.json());
 // Middleware để phân tích cú pháp yêu cầu URL-encoded
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 

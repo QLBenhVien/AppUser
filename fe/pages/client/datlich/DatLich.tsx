@@ -1,11 +1,24 @@
-import React from "react";
-import { Text, View, SafeAreaView, StyleSheet, ImageBackground, Dimensions, TouchableOpacity, Image } from "react-native";
+import React, { useContext } from "react";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  StyleSheet,
+  ImageBackground,
+  Dimensions,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import Header from "../../../components/Header";
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 const { width, height } = Dimensions.get("window");
 
-const DatLich = () => {
+import { UserContext } from "../../context/UserContext";
+
+const DatLich = (props: any) => {
+  const { user } = useContext(UserContext);
+
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -16,8 +29,15 @@ const DatLich = () => {
         <View style={styles.headercontainer}>
           <Text style={styles.headerText}>Đặt lịch khám</Text>
         </View>
-      
-        <TouchableOpacity style={styles.DatlichDate}>
+
+        <TouchableOpacity
+          style={styles.DatlichDate}
+          onPress={() => {
+            props.navigation.navigate("naviTK", {
+              screen: "DatKhamNgay",
+            });
+          }}
+        >
           <View style={styles.imageContainer}>
             <Image
               source={require("../../../assets/Datlich/Date.jpg")}
@@ -27,12 +47,20 @@ const DatLich = () => {
           <View style={styles.textContainer}>
             <Text style={styles.mainText}>Đặt lịch</Text>
             <Text style={styles.secondaryText}>Khám theo ngày</Text>
-            <Text style={styles.descriptionText}>Đặt lịch khám bệnh theo ngày tại phòng khám UMC</Text>
+            <Text style={styles.descriptionText}>
+              Đặt lịch khám bệnh theo ngày tại phòng khám UMC
+            </Text>
           </View>
         </TouchableOpacity>
-        
-       
-        <TouchableOpacity style={styles.DatlichBacSi}>
+
+        <TouchableOpacity
+          style={styles.DatlichBacSi}
+          onPress={() => {
+            props.navigation.navigate("naviTK", {
+              screen: "DatKhamBS",
+            });
+          }}
+        >
           <View style={styles.imageContainer}>
             <Image
               source={require("../../../assets/Datlich/Doctor.jpg")}
@@ -42,10 +70,11 @@ const DatLich = () => {
           <View style={styles.textContainer}>
             <Text style={styles.mainText}>Đặt lịch</Text>
             <Text style={styles.secondaryText}>Khám theo Bác sĩ</Text>
-            <Text style={styles.descriptionText}>Đặt lịch khám bệnh theo bác sĩ tại phòng khám UMC</Text>
+            <Text style={styles.descriptionText}>
+              Đặt lịch khám bệnh theo bác sĩ tại phòng khám UMC
+            </Text>
           </View>
         </TouchableOpacity>
-        
       </ImageBackground>
     </SafeAreaView>
   );
@@ -62,18 +91,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   headercontainer: {
-    position: 'absolute',
-    top: height * 0.2, 
+    position: "absolute",
+    top: height * 0.2,
     width: width,
-    backgroundColor: '#22668E',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#22668E",
+    alignItems: "center",
+    justifyContent: "center",
     zIndex: 1,
   },
   headerText: {
     fontSize: RFPercentage(3),
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
   },
   DatlichDate: {
     position: "absolute",
@@ -87,9 +116,9 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     padding: 20,
     zIndex: 1,
-    flexDirection: "row", 
+    flexDirection: "row",
     alignItems: "center",
-    shadowColor: "#000", 
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -112,7 +141,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
     flexDirection: "row",
     alignItems: "center",
-    shadowColor: "#000", 
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -122,32 +151,32 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   imageContainer: {
-    flex: 1, 
-    justifyContent: 'flex-start', 
-    alignItems: 'center',
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
   buttonImage: {
     width: "90%",
     height: undefined,
     aspectRatio: 1,
-    resizeMode: 'contain', 
+    resizeMode: "contain",
   },
   textContainer: {
     flex: 2,
-    justifyContent: 'center', 
+    justifyContent: "center",
   },
   mainText: {
     fontSize: RFPercentage(2.5),
-    color: '#22668E',
+    color: "#22668E",
   },
   secondaryText: {
     fontSize: RFPercentage(3),
-    fontWeight: 'bold',
-    color: '#22668E',
+    fontWeight: "bold",
+    color: "#22668E",
   },
   descriptionText: {
     fontSize: RFPercentage(1.5),
-    color: '#808080',
+    color: "#808080",
   },
 });
 

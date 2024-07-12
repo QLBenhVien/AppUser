@@ -21,7 +21,7 @@ import { UserContext } from "../../context/UserContext";
 import axios from "axios";
 import Toast from "react-native-toast-message";
 const DetailTaiKhoan = (props: any) => {
-  const { user } = useContext(UserContext);
+  const { setUser, user } = useContext(UserContext);
 
   //thong tin khach hang
   const [name, Setname] = useState(user.Ten);
@@ -60,6 +60,8 @@ const DetailTaiKhoan = (props: any) => {
           text1: "Cập nhập thành công",
         });
         props.navigation.goBack();
+        setUser(res.data.updatedUser);
+        console.log(res.data.updatedUser);
       })
       .catch(function (err) {
         console.log(err);

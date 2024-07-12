@@ -66,9 +66,9 @@ module.exports.dangnhap = async (req, res, next) => {
 module.exports.home = async (req, res, next) => {};
 
 module.exports.Capnhapthongtin = async (req, res, next) => {
-  const { name, date, address, cccd, numberPhone, sex, email } = req.body;
+  const { Email, Ten, NgaySinh, DiaChi, SDT, GioiTinh, CCCD } = req.body;
 
-  if (!email) {
+  if (!Email) {
     return res
       .status(400)
       .json({ message: "email is required to update information." });
@@ -76,14 +76,14 @@ module.exports.Capnhapthongtin = async (req, res, next) => {
 
   try {
     const updatedUser = await BenhNhan.findOneAndUpdate(
-      { Email: email },
+      { Email: Email },
       {
-        Ten: name,
-        NgaySinh: date,
-        DiaChi: address,
-        SDT: numberPhone,
-        GioiTinh: sex,
-        CCCD: cccd,
+        Ten: Ten,
+        NgaySinh: NgaySinh,
+        DiaChi: DiaChi,
+        SDT: SDT,
+        GioiTinh: GioiTinh,
+        CCCD: CCCD,
       },
       { new: true, runValidators: true }
     );
@@ -100,3 +100,15 @@ module.exports.Capnhapthongtin = async (req, res, next) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+//page dang ky
+
+module.exports.Dangkybenh = async (req, res, next) => {};
+
+module.exports.Dangkykhambenh = async (req, res, next) => {
+  const {} = req.body;
+};
+
+// thong bao
+
+// phieu kham
