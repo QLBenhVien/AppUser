@@ -1,38 +1,64 @@
-.App {
-  text-align: center;
+/* src/App.css */
+.AppContainer {
+  display: flex;
+  height: 100vh;
+  background: url('./images/background_img.png') no-repeat center center fixed;
+  background-size: cover;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.ContentContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.LoginContainer {
+  display: flex;
+  flex: 1;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.LeftContainer {
+  flex: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.RightContainer {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.DoctorImage {
+  position: absolute;
+  bottom: 150px;
+  right: 220px;
+  height: 70%;
+}
+
+.WelcomeText {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.ContentContainer > .MainContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: #e3f2fd;
+  padding: 20px;
+}
+
+.MainContent .info-cards {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
 }
