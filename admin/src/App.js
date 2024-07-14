@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
-import Header from './Screens/Dangnhap/Header';
-import LoginBox from './Screens/Dangnhap/LoginBox';
+import React, { useState } from "react";
+import Header from "./Screens/Dangnhap/Header";
+import LoginBox from "./Screens/Dangnhap/LoginBox";
 
-import HomePage from './Screens/TrangBacSi/HomePage';
-import Sidebar from './Screens/TrangBacSi/Sidebar';
-import NavBar from './Screens/TrangBacSi/NavBar';
+import HomePage from "./Screens/TrangBacSi/HomePage";
+import Sidebar from "./Screens/TrangBacSi/Sidebar";
+import NavBar from "./Screens/TrangBacSi/NavBar";
 
-
-import doctorImage from './images/doctor.png'; 
-import './App.css';
+import doctorImage from "./images/doctor.png";
+import "./App.css";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
