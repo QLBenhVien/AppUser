@@ -55,7 +55,7 @@ const dataEvents = [
   },
 ];
 
-const TrangChu = () => {
+const TrangChu = (props: any) => {
   const { user } = useContext(UserContext);
 
   console.log(user);
@@ -137,7 +137,11 @@ const TrangChu = () => {
             <View style={styles.Inforcontainer}>
               <TouchableOpacity
                 style={styles.Button}
-                onPress={() => alert("Button 1 pressed")}
+                onPress={() => {
+                  props.navigation.navigate("naviTK", {
+                    screen: "ThongTinHoSo",
+                  });
+                }}
               >
                 <View style={styles.Buttoncontainer}>
                   <View style={styles.viewimg}>

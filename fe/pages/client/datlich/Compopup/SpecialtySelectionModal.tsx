@@ -1,10 +1,24 @@
 import React from "react";
-import { Modal, View, Text, TouchableOpacity, StyleSheet, Dimensions, ScrollView, TextInput } from "react-native";
+import {
+  Modal,
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  TextInput,
+} from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 const { width, height } = Dimensions.get("window");
 
-const SpecialtySelectionModal = ({ visible, specialties, onSelectSpecialty, onClose }) => {
+const SpecialtySelectionModal = ({
+  visible,
+  specialties,
+  onSelectSpecialty,
+  onClose,
+}) => {
   const handleSelectSpecialty = (specialty: any) => {
     onSelectSpecialty(specialty);
     onClose();
@@ -21,11 +35,30 @@ const SpecialtySelectionModal = ({ visible, specialties, onSelectSpecialty, onCl
         <View style={styles.modalContainer}>
           <Text style={styles.modalTitle}>Chọn chuyên khoa</Text>
           <ScrollView style={styles.scrollView}>
-            {specialties.map((specialty, index) => (
-              <TouchableOpacity key={index} onPress={() => handleSelectSpecialty(specialty)}>
-                <Text style={styles.specialtyItem}>{specialty}</Text>
-              </TouchableOpacity>
-            ))}
+            {specialties.map(
+              (
+                specialty:
+                  | string
+                  | number
+                  | boolean
+                  | React.ReactElement<
+                      any,
+                      string | React.JSXElementConstructor<any>
+                    >
+                  | Iterable<React.ReactNode>
+                  | React.ReactPortal
+                  | null
+                  | undefined,
+                index: React.Key | null | undefined
+              ) => (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => handleSelectSpecialty(specialty.tenkhoa)}
+                >
+                  <Text style={styles.specialtyItem}>{specialty.tenkhoa}</Text>
+                </TouchableOpacity>
+              )
+            )}
             <TextInput
               placeholder="Nhập chuyên khoa mới..."
               style={styles.textInput}
