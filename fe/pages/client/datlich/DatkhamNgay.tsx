@@ -37,25 +37,27 @@ const DatlichNgayScreen = (props: any) => {
   const [specialtyListVisible, setSpecialtyListVisible] = useState(false);
   const [selectedSpecialty, setSelectedSpecialty] = useState("");
   // xet api
+  const [specialties, setSpecialties] = useState([]);
 
-  const [specialties, setSpecialties] = useState([
-    "Nội khoa",
-    "Ngoại khoa",
-    "Phụ khoa",
-    "Tai mũi họng",
-    "Răng hàm mặt",
-  ]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/user/dangkykhambenh/theongay")
+      .then(function (res) {
+        const departments = res.data.dataKhoa.map(
+          (khoa: { _id: any; tenkhoa: any }) => ({
+            tenkhoa: khoa.tenkhoa,
+          })
+        );
+        setSpecialties(departments);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .put("localhost:8080/user/dangkykhambenh/theongay")
-  //     .then(function (res) {
-  //       setSpecialties(res.data.khoas);
-  //     })
-  //     .catch(function (err) {
-  //       console.log(err);
-  //     });
-  // }, []);
+  useEffect(() => {
+    console.log(specialties);
+  }, [specialties]);
 
   //
 
@@ -110,10 +112,22 @@ const DatlichNgayScreen = (props: any) => {
   const handleBookAppointment = () => {
     // Replace with actual logic to book appointment
     if (selectedDate && selectedSpecialty && selectedTimeSlot) {
-      Alert.alert(
-        "Đặt lịch khám thành công!",
-        `Bạn đã đặt lịch khám vào ngày ${selectedDate}, chuyên khoa ${selectedSpecialty}, giờ ${selectedTimeSlot}.`
-      );
+      axios
+        .post("http://localhost:8080/user/dangkykhambenh/datkham", {
+          MaBN: user._id,
+          TenKhoa: selectedSpecialty,
+          NgayDat: selectedDate,
+        })
+        .then(function (res) {
+          console.log(res.data);
+          Alert.alert(
+            "Đặt lịch khám thành công!",
+            `Bạn đã đặt lịch khám vào ngày ${selectedDate}, chuyên khoa ${selectedSpecialty}, giờ ${selectedTimeSlot}.`
+          );
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
     } else {
       Alert.alert("Lỗi", "Vui lòng chọn đầy đủ thông tin để đặt lịch khám.");
     }
@@ -201,7 +215,7 @@ const DatlichNgayScreen = (props: any) => {
               <TextInput
                 placeholder="Chọn chuyên khoa"
                 style={styles.textInput}
-                value={selectedSpecialty}
+                value={selectedSpecialty} // Đã sửa để hiển thị chuỗi thay vì object
                 editable={false}
               />
               <MaterialIcons
