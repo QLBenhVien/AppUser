@@ -7,7 +7,7 @@ const { width, height } = Dimensions.get("window");
 
 const EditThongTinDatLichScreen = () => {
   const [name, setName] = useState('');
-  const [selectedSex, setSelectedSex] = useState('Nam');
+  const [selectedSex, setSelectedSex] = useState('');
   const [dob, setDob] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
@@ -15,11 +15,15 @@ const EditThongTinDatLichScreen = () => {
 
   const options = ['Nam', 'Nữ'];
 
-  const pickSex = (option: React.SetStateAction<string>) => {
+  const pickSex = (option: string) => {
     setSelectedSex(option);
   };
 
   const saveProfile = () => {
+    if (!selectedSex) {
+      Alert.alert('Lỗi', 'Vui lòng chọn giới tính');
+      return;
+    }
     if (!dob.trim()) {
       Alert.alert('Lỗi', 'Vui lòng nhập ngày sinh');
       return;
@@ -70,26 +74,18 @@ const EditThongTinDatLichScreen = () => {
             <Text style={styles.label}>Giới tính:</Text>
             <View style={styles.genderContainer}>
               {options.map((option) => (
-                <View key={option} style={styles.genderItem}>
-                  <TouchableOpacity
-                    style={[
-                      styles.checkbox,
-                      selectedSex === option && styles.selectedCheckbox,
-                    ]}
-                    onPress={() => pickSex(option)}
-                  >
-                    {selectedSex === option && (
-                      <MaterialIcons
-                        name="check"
-                        size={RFPercentage(2)}
-                        color="#fff"
-                      />
-                    )}
-                  </TouchableOpacity>
+                <TouchableOpacity
+                  key={option}
+                  style={[
+                    styles.genderItem,
+                    selectedSex === option && styles.selectedGenderItem,
+                  ]}
+                  onPress={() => pickSex(option)}
+                >
                   <Text style={[styles.genderText, { fontSize: RFPercentage(2.5) }]}>
                     {option}
                   </Text>
-                </View>
+                </TouchableOpacity>
               ))}
             </View>
           </View>
@@ -213,31 +209,28 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-      fontSize: RFPercentage(2.2),
+    fontSize: RFPercentage(2.2),
   },
   genderContainer: {
     flexDirection: "row",
+    marginTop: height * 0.01,
   },
   genderItem: {
     flexDirection: "row",
     alignItems: "center",
     marginHorizontal: width * 0.02,
-  },
-  checkbox: {
-    width: RFPercentage(3),
-    height: RFPercentage(3),
-    borderRadius: RFPercentage(0.5),
     borderWidth: 1,
     borderColor: "#C0C0C0",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: width * 0.02,
+    paddingHorizontal: width * 0.02,
+    paddingVertical: height * 0.01,
+    borderRadius: 5,
   },
-  selectedCheckbox: {
+  selectedGenderItem: {
     backgroundColor: "#22668E",
   },
   genderText: {
     fontSize: RFPercentage(2.2),
+    marginLeft: width * 0.01,
   },
   buttonContainer: {
     width: width * 0.9,
