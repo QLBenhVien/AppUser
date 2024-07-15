@@ -1,57 +1,63 @@
-import React, { Component, useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  Dimensions,
-} from "react-native";
+
+        
+import React from "react";
+import { Text, View, SafeAreaView, StyleSheet, ScrollView,,Dimensions } from "react-native";
 import Header from "../../../components/Header";
-import axios from "axios";
-import ThongBaoCard from "./listThongBao";
+import ThongBaoCard from "../../client/thongbao/listThongBao"; // Giả sử đường dẫn của bạn tới ThongBaoCard
 import { RFPercentage } from "react-native-responsive-fontsize";
-
+import { MaterialIcons } from "@expo/vector-icons";
 const { width } = Dimensions.get("window");
+
 const ThongBao = () => {
-  const [thongbao, SetThongbao] = useState({});
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/user/thongbao")
-      .then(function (res) {
-        const dataThongBao = res.data.data;
-        SetThongbao(dataThongBao);
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
-  }, []);
+  const thongBaoData = [
+    {
+      tieuDe: "Thông báo 1",
+      noiDung: "Nội dung thông báo 1",
+    },
+    {
+      tieuDe: "Thông báo 2",
+      noiDung: "Nội dung thông báo 2",
+    },
+    {
+      tieuDe: "Thông báo 3",
+      noiDung: "Nội dung thông báo 3",
+    },
+  ];
 
-  const handlePress = (item: any) => {
-    console.log("da nhan");
+  const handlePress = (item) => {
+    console.log("Thông báo được nhấn:", item);
   };
 
-  console.log(thongbao);
   return (
     <SafeAreaView style={styles.Container}>
-      <Header content="Thông báo" />
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          height: "83%",
-        }}
-      >
-        {thongbao === null ? (
-          <Text>Không có thông báo</Text>
-        ) : (
-          <Text>Không có thông báo</Text>
-        )}
+      <View style={styles.header}>
+        <TouchableOpacity>
+          <MaterialIcons
+            name="arrow-back"
+            size={RFPercentage(4)}
+            color="#FFFFFF"
+            style={styles.headerIcon}
+          />
+        </TouchableOpacity>
+        <View style={styles.headerTitleContainer}>
+          <Text style={styles.headerTitle}>Thông Báo</Text>
+        </View>
       </View>
+     
+      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+        {thongBaoData.map((item, index) => (
+          <ThongBaoCard
+            key={index}
+            thongBao={item}
+            onPress={() => handlePress(item)}
+          />
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
   Container: {
     flex: 1,

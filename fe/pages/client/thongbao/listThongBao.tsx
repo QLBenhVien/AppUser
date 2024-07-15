@@ -23,7 +23,6 @@ interface ThongBaoCardProps {
 const ThongBaoCard: React.FC<ThongBaoCardProps> = ({ thongBao, onPress }) => {
   return (
     <TouchableOpacity style={styles.itemContainer} onPress={onPress}>
-      
       <View style={styles.infoContainer}>
         <Text style={styles.title}>{thongBao.tieuDe}</Text>
         <Text style={styles.message}>{thongBao.noiDung}</Text>
