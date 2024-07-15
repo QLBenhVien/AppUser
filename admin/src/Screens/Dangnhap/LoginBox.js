@@ -1,15 +1,45 @@
-import React from 'react';
-import styled from 'styled-components';
-
+import React, { useState } from "react";
+import styled from "styled-components";
+import axios from "axios";
 const LoginBox = ({ onLogin }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handlelogin = async () => {
+    console.log("da nhan");
+
+    await axios
+      .post("http://localhost:8080/user/dangnhap", {
+        email: email,
+        password: password,
+        role: "NV",
+      })
+      .then(function (res) {
+        console.log("Dang nhap thanh cong");
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  };
   return (
     <BoxContainer>
       <LoginTitle>Đăng Nhập</LoginTitle>
       <Form>
-        <Input type="text" placeholder="Nhập tên đăng nhập" />
-        <Input type="password" placeholder="Nhập mật khẩu" />
+        <Input
+          value={email}
+          type="text"
+          placeholder="Nhập email"
+          onChange={(e) => setEmail(e.target.value)}
+          style={{ fontSize: 12 }}
+        />
+        <Input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          placeholder="Nhập mật khẩu"
+          style={{ fontSize: 12 }}
+        />
         <ForgotPassword href="#">Quên mật khẩu?</ForgotPassword>
-        <Button onClick={onLogin}>Đăng nhập</Button>
+        <Button onClick={handlelogin}>Đăng nhập</Button>
       </Form>
     </BoxContainer>
   );
@@ -21,11 +51,11 @@ export default LoginBox;
 const BoxContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left:50px;
+  margin-left: 50px;
   width: 300px;
   height: 350px;
   padding: 20px;
-  background-color: #3A7CA5;
+  background-color: #3a7ca5;
   border-radius: 30px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: white;
