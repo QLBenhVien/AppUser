@@ -14,17 +14,17 @@ import { UserContext } from "../../context/UserContext";
 
 const { width, height } = Dimensions.get("window");
 
-const KetQuaScreen = () => {
-  const user = {
-    name: "HOÀI",
-    gender: "Nữ",
-    birthdate: "20/10/2004",
-  };
+const KetQuaScreen = (props: any) => {
+  const { user } = useContext(UserContext);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.goBack();
+          }}
+        >
           <MaterialIcons
             name="arrow-back"
             size={RFPercentage(4)}
@@ -45,8 +45,10 @@ const KetQuaScreen = () => {
             style={styles.avatarIcon}
           />
           <View style={styles.userInfo}>
-            <Text style={styles.userName}>{user.name}</Text>
-            <Text style={styles.userDetails}>{user.gender} - {user.birthdate}</Text>
+            <Text style={styles.userName}>{user.Ten}</Text>
+            <Text style={styles.userDetails}>
+              {user.gender} - {user.NgaySinh}
+            </Text>
           </View>
         </View>
         <View style={styles.noDataContainer}>
@@ -57,7 +59,9 @@ const KetQuaScreen = () => {
             style={styles.noDataIcon}
           />
           <Text style={styles.noDataText}>Không có dữ liệu</Text>
-          <Text style={styles.noDataSubText}>Không có dữ liệu nào được tìm thấy</Text>
+          <Text style={styles.noDataSubText}>
+            Không có dữ liệu nào được tìm thấy
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -94,14 +98,14 @@ const styles = StyleSheet.create({
   profileContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent:'center',
+    justifyContent: "center",
     backgroundColor: "#22668E",
     width: width * 1,
-    height: height*0.2,
+    height: height * 0.2,
     paddingVertical: height * 0.02,
     paddingHorizontal: width * 0.05,
-    borderBottomLeftRadius:width*0.2,
-    borderBottomRightRadius:width*0.2,
+    borderBottomLeftRadius: width * 0.2,
+    borderBottomRightRadius: width * 0.2,
   },
   avatarIcon: {
     marginRight: width * 0.05,

@@ -12,4 +12,7 @@ route.put("/capnhapthongtin", User.Capnhapthongtin);
 // dang ky kham benh pages
 route.get("/dangkykhambenh/theongay", User.Theongay);
 route.post("/dangkykhambenh/datkham", User.Datkham);
+
+//thong bao
+route.get("/thongbao", User.thongbao);
 module.exports = route;

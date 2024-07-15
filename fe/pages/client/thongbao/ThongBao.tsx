@@ -1,5 +1,7 @@
+
+        
 import React from "react";
-import { Text, View, SafeAreaView, StyleSheet, ScrollView,TouchableOpacity,Dimensions } from "react-native";
+import { Text, View, SafeAreaView, StyleSheet, ScrollView,,Dimensions } from "react-native";
 import Header from "../../../components/Header";
 import ThongBaoCard from "../../client/thongbao/listThongBao"; // Giả sử đường dẫn của bạn tới ThongBaoCard
 import { RFPercentage } from "react-native-responsive-fontsize";
@@ -7,6 +9,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 const { width } = Dimensions.get("window");
 
 const ThongBao = () => {
+
   const thongBaoData = [
     {
       tieuDe: "Thông báo 1",
