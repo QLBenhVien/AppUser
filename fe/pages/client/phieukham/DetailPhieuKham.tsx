@@ -39,7 +39,11 @@ const DetailPhieuKham = () => {
             }}
           >
             <Text
-              style={{ fontSize: RFPercentage(3.5), fontWeight: "bold", marginHorizontal: 15 }}
+              style={{
+                fontSize: RFPercentage(3.5),
+                fontWeight: "bold",
+                marginHorizontal: 15,
+              }}
             >
               PHIẾU KHÁM BỆNH
             </Text>
@@ -109,6 +113,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: height * 0.02,
     padding: width * 0.02,
+    marginBottom: width * 0.2,
   },
   LogoUMC: {
     flexDirection: "row",
