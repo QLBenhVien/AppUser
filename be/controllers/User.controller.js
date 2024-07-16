@@ -205,6 +205,15 @@ module.exports.Datkham = async (req, res, next) => {
 //////////////////////////////////////////////////////////////////////////////////
 
 // thong bao
+module.exports.thongbao = async (req, res, next) => {
+  try {
+    const dataThongBao = await ThongBao.find();
+    res.status(200).json({ data: dataThongBao });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
 // phieu kham
 

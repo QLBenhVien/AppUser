@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const LoginBox = ({ onLogin }) => {
   return (
@@ -21,11 +21,11 @@ export default LoginBox;
 const BoxContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left:50px;
+  margin-left: 50px;
   width: 300px;
   height: 350px;
   padding: 20px;
-  background-color: #3A7CA5;
+  background-color: #3a7ca5;
   border-radius: 30px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: white;
