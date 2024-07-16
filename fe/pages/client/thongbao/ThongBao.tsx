@@ -52,11 +52,10 @@ const ThongBao = () => {
             )
           )}
         </ScrollView>
-
       </View>
-     
+
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        {thongBaoData.map((item, index) => (
+        {thongBaoData.map((item: any, index) => (
           <ThongBaoCard
             key={index}
             thongBao={item}
