@@ -13,6 +13,5 @@ route.put("/capnhapthongtin", User.Capnhapthongtin);
 route.get("/dangkykhambenh/theongay", User.Theongay);
 route.post("/dangkykhambenh/datkham", User.Datkham);
 
-//thong bao
 route.get("/thongbao", User.thongbao);
 module.exports = route;

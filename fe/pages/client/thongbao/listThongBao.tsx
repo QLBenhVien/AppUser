@@ -11,8 +11,9 @@ import { MaterialIcons } from "@expo/vector-icons";
 const { width } = Dimensions.get("window");
 
 interface ThongBao {
-  tieuDe: string;
-  noiDung: string;
+  id: string;
+  TieuDe: string;
+  NoiDung: string;
 }
 
 interface ThongBaoCardProps {
@@ -24,8 +25,10 @@ const ThongBaoCard: React.FC<ThongBaoCardProps> = ({ thongBao, onPress }) => {
   return (
     <TouchableOpacity style={styles.itemContainer} onPress={onPress}>
       <View style={styles.infoContainer}>
-        <Text style={styles.title}>{thongBao.tieuDe}</Text>
-        <Text style={styles.message}>{thongBao.noiDung}</Text>
+        <Text style={styles.title}>{thongBao.TieuDe}</Text>
+        <Text style={styles.message}>
+          Phòng 25 | chuyên khoa: răng hàm mặt{" "}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -50,7 +53,7 @@ const styles = StyleSheet.create({
     paddingLeft: width * 0.025,
   },
   title: {
-    fontSize: width * 0.05,
+    fontSize: width * 0.038,
     fontWeight: "bold",
     color: "#000",
     marginBottom: width * 0.01,

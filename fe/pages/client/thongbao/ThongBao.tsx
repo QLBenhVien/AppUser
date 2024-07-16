@@ -1,48 +1,58 @@
-
-        
-import React from "react";
-import { Text, View, SafeAreaView, StyleSheet, ScrollView,,Dimensions } from "react-native";
+import React, { Component, useState, useEffect } from "react";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import Header from "../../../components/Header";
-import ThongBaoCard from "../../client/thongbao/listThongBao"; // Giả sử đường dẫn của bạn tới ThongBaoCard
+import ThongBaoCard from "./ListThongBao";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { MaterialIcons } from "@expo/vector-icons";
+import axios from "axios";
 const { width } = Dimensions.get("window");
-
 const ThongBao = () => {
+  const [thongBaoData, setThongBaoData] = useState([{}]);
 
-  const thongBaoData = [
-    {
-      tieuDe: "Thông báo 1",
-      noiDung: "Nội dung thông báo 1",
-    },
-    {
-      tieuDe: "Thông báo 2",
-      noiDung: "Nội dung thông báo 2",
-    },
-    {
-      tieuDe: "Thông báo 3",
-      noiDung: "Nội dung thông báo 3",
-    },
-  ];
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/user/thongbao")
+      .then(function (res) {
+        const data = res.data.data;
+        setThongBaoData(data);
+        console.log(data);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  }, thongBaoData);
 
-  const handlePress = (item) => {
-    console.log("Thông báo được nhấn:", item);
+  const handlePress = (index: any) => {
+    console.log(index._id);
   };
-
   return (
     <SafeAreaView style={styles.Container}>
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <MaterialIcons
-            name="arrow-back"
-            size={RFPercentage(4)}
-            color="#FFFFFF"
-            style={styles.headerIcon}
-          />
-        </TouchableOpacity>
-        <View style={styles.headerTitleContainer}>
-          <Text style={styles.headerTitle}>Thông Báo</Text>
-        </View>
+      <Header content="Thông báo" />
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          height: "83%",
+        }}
+      >
+        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+          {thongBaoData.map(
+            (item: any, index: React.Key | null | undefined) => (
+              <ThongBaoCard
+                key={index}
+                thongBao={item}
+                onPress={() => handlePress(item)}
+              />
+            )
+          )}
+        </ScrollView>
+
       </View>
      
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
