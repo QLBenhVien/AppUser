@@ -155,7 +155,11 @@ const TrangChu = (props: any) => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.Button}
-                onPress={() => alert("Button 2 pressed")}
+                onPress={() => {
+                  props.navigation.navigate("naviTK", {
+                    screen: "KetQua",
+                  });
+                }}
               >
                 <View style={styles.Buttoncontainer}>
                   <View style={styles.viewimg}>
@@ -169,7 +173,11 @@ const TrangChu = (props: any) => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.Button}
-                onPress={() => alert("Button 3 pressed")}
+                onPress={() => {
+                  props.navigation.navigate("naviTK", {
+                    screen: "BacSiAI",
+                  });
+                }}
               >
                 <View style={styles.Buttoncontainer}>
                   <View style={styles.viewimg}>

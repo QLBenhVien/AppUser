@@ -11,6 +11,10 @@ import DatKhamNgay from "./datlich/DatkhamNgay";
 
 import ThongTinHoSo from "./datlich/ThongtinDatlich";
 import ChinhSuaThongTinHS from "./datlich/ChinhSuaThongTinDatKham";
+import BacSiAI from "./Final/BacSiAI";
+import DanhSachBS from "./Final/DanhSachBS";
+import KetQua from "./Final/KetQua";
+import ListBacSi from "./Final/ListBacSi";
 //dataUser
 
 export default AppNavigation = () => {
@@ -22,6 +26,10 @@ export default AppNavigation = () => {
       <Stack.Screen name="DatKhamNgay" component={DatKhamNgay} />
       <Stack.Screen name="ThongTinHoSo" component={ThongTinHoSo} />
       <Stack.Screen name="ChinhSuaThongTinHS" component={ChinhSuaThongTinHS} />
+      <Stack.Screen name="BacSiAI" component={BacSiAI} />
+      <Stack.Screen name="DanhSachBS" component={DanhSachBS} />
+      <Stack.Screen name="KetQua" component={KetQua} />
+      <Stack.Screen name="ListBacSi" component={ListBacSi} />
     </Stack.Navigator>
   );
 };

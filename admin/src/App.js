@@ -23,7 +23,8 @@ import doctorImage from "./images/doctor.png";
 import "./App.css";
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState("QuanLyHoSoBenhAn"); // Default to testing
+
+  const [currentPage, setCurrentPage] = useState("LoginPage"); // Default to testing
 
   const handleLogin = () => {
     setCurrentPage("HomePage");

@@ -94,10 +94,12 @@ module.exports.dangnhap = async (req, res, next) => {
       const benhnhan = await BenhNhan.findOne({ accountId: idTK });
       res.status(200).json({ message: "login successfil", data: benhnhan });
     } else if (role === "NV") {
+      console.log("check nv");
       console.log(email, password, role);
-      const user = await TaiKhoan.findOne({ email, role });
+      const user = await TaiKhoan.findOne({ email });
 
       if (!user) {
+        console.log;
         res.status(400).json({ message: "user does not exits" });
       }
 
@@ -106,10 +108,11 @@ module.exports.dangnhap = async (req, res, next) => {
         return res.status(400).json({ message: "invalid password." });
       }
       const idTK = user.id;
-      const NhanVien = await NhanVien.findOne({ MaTK: idTK });
-      res.status(200).json({ message: "login successfil", data: NhanVien });
+      const nhanVien = await NhanVien.findOne({ MaTK: idTK });
+      res.status(200).json({ message: "login successfil", data: nhanVien });
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "internal server error" });
   }
 };
@@ -214,6 +217,7 @@ module.exports.thongbao = async (req, res, next) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 
 // phieu kham
 

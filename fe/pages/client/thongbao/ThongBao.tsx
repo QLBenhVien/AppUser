@@ -52,10 +52,22 @@ const ThongBao = () => {
             )
           )}
         </ScrollView>
+
       </View>
+     
+      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+        {thongBaoData.map((item, index) => (
+          <ThongBaoCard
+            key={index}
+            thongBao={item}
+            onPress={() => handlePress(item)}
+          />
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
   Container: {
     flex: 1,

@@ -15,11 +15,15 @@ import { UserContext } from "../../context/UserContext";
 
 const { width, height } = Dimensions.get("window");
 
-const BSAIScreen = () => {
+const BSAIScreen = (props: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.goBack();
+          }}
+        >
           <MaterialIcons
             name="arrow-back"
             size={RFPercentage(4)}
