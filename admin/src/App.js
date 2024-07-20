@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+// React Router
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 // Login page
 import Header from './Screens/Dangnhap/Header';
 import LoginBox from './Screens/Dangnhap/LoginBox';
@@ -23,57 +25,32 @@ import doctorImage from './images/doctor.png';
 import './App.css';
 
 const App = () => {
-  
-  const [currentPage, setCurrentPage] = useState('QuanLyHoSoBenhAn'); // Default to testing
-
-  const handleLogin = () => {
-    setCurrentPage('HomePage');
-  };
-
   return (
-    <div className="AppContainer">
-      {currentPage === 'QuanLyHoSoBenhAn' && (
-        <>
-          <SidebarQLHSBA />
-          <div className="ContentContainer">
-            <NavBarQLHSBA />
-            <HomePageQLHSBA />
-          </div>
-        </>
-      )}
-      {currentPage === 'ThongTinHoSoBenhAn' && (
-        <>
-          <SidebarTTHSBA />
-          <div className="ContentContainer">
-            <NavBarTTHSBA />
-            <HomePageTTHSBA />
-          </div>
-        </>
-      )}
-      {currentPage === 'PhieuChiDinh' && (
-        <>
-          <SidebarPCD />
-          <div className="ContentContainer">
-            <NavBarPCD />
-            <HomePagePCD />
-          </div>
-        </>
-      )}
-      {currentPage === 'LoginPage' && (
-        <div className="ContentContainer">
-          <Header />
-          <div className="LoginContainer">
-            <div className="LeftContainer">
-              <p className="WelcomeText">Vui lòng đăng nhập</p>
-              <LoginBox onLogin={handleLogin} />
-            </div>
-            <div className="RightContainer">
-              <img className="DoctorImage" src={doctorImage} alt="Doctor" />
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    <Router>
+      <div className="AppContainer">
+        <Routes>
+          <Route path="/login" element={
+            <>
+              <Header />
+              <div className="LoginContainer">
+                <div className="LeftContainer">
+                  <p className="WelcomeText">Vui lòng đăng nhập</p>
+                  <LoginBox />
+                </div>
+                <div className="RightContainer">
+                  <img className="DoctorImage" src={doctorImage} alt="Doctor" />
+                </div>
+              </div>
+            </>
+          } />
+          <Route path="/home" element={<><Sidebar /><NavBar /><HomePage /></>} />
+          <Route path="/phieu-chi-dinh" element={<><SidebarPCD /><NavBarPCD /><HomePagePCD /></>} />
+          <Route path="/quan-ly-ho-so-benh-an" element={<><SidebarQLHSBA /><NavBarQLHSBA /><HomePageQLHSBA /></>} />
+          <Route path="/thong-tin-ho-so-benh-an" element={<><SidebarTTHSBA /><NavBarTTHSBA /><HomePageTTHSBA /></>} />
+          <Route path="*" element={<Navigate replace to="/login" />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
