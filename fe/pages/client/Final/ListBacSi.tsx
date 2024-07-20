@@ -81,10 +81,10 @@ const styles = StyleSheet.create({
     color: "#3498db",
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: width * 0.04,
-    alignItems:'center',
+    alignItems: "center",
   },
   bookButton: {
     backgroundColor: "#3498db",

@@ -218,8 +218,42 @@ module.exports.thongbao = async (req, res, next) => {
   }
 };
 
-
 // phieu kham
 
 //nhan vien
 // cap nhap thong tin nhan vien
+
+//lay lai mat khau
+module.exports.laylaimk = async (req, res, next) => {
+  try {
+    const { email, matkhau } = req.body;
+
+    // Find the email in the database
+    const Email = await TaiKhoan.findOne({ email });
+
+    if (!Email) {
+      return res.status(400).json("Email không tồn tại");
+    }
+
+    // Hash the new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(matkhau, salt);
+
+    // Update the password in the database
+    const updatedTK = await TaiKhoan.findOneAndUpdate(
+      { email: email },
+      { password: hashedPassword },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedTK) {
+      return res.status(500).json("Lỗi hệ thống");
+    }
+
+    // Send a successful response
+    res.status(200).json("Request successful");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json("Internal server error");
+  }
+};

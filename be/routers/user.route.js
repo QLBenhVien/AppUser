@@ -14,4 +14,5 @@ route.get("/dangkykhambenh/theongay", User.Theongay);
 route.post("/dangkykhambenh/datkham", User.Datkham);
 
 route.get("/thongbao", User.thongbao);
+route.post("/laylaimk", User.laylaimk);
 module.exports = route;

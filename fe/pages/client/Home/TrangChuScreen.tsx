@@ -200,7 +200,11 @@ const TrangChu = (props: any) => {
             </View>
             <TouchableOpacity
               style={{ flexDirection: "row", alignItems: "center" }}
-              onPress={() => alert("chuyển trang")}
+              onPress={() => {
+                props.navigation.navigate("naviTK", {
+                  screen: "ListBacSi",
+                });
+              }}
             >
               <Text style={{ color: "#22668E" }}>Xem Thêm</Text>
               <MaterialIcons
