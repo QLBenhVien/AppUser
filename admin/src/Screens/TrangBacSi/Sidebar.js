@@ -2,20 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import logo from '../../images/logo.png';
 
-const Sidebar = () => {
+const Sidebar = ({ onNavigate }) => {
   return (
     <SidebarContainer>
       <LogoContainer>
         <Logo src={logo} alt="Phòng khám UCM" />
         <h1>Phòng khám UCM</h1>
       </LogoContainer>
-      <MenuItem>
+      <MenuItem onClick={() => onNavigate('HomePage')}>
         <HomeLink href="#">Trang chủ</HomeLink>
       </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={() => onNavigate('HoSoBenhAn')}>
         <MenuLink href="#">Hồ sơ bệnh án</MenuLink>
       </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={() => onNavigate('PhieuChiDinh')}> 
         <MenuLink href="#">Phiếu chỉ định</MenuLink>
       </MenuItem>
     </SidebarContainer>
@@ -60,6 +60,7 @@ const MenuItem = styled.div`
   width: 100%;
   margin: 10px 0;
   text-align: center;
+  cursor: pointer; // Make it obvious it's clickable
 `;
 
 const HomeLink = styled.a`
