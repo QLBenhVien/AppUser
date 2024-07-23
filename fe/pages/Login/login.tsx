@@ -40,6 +40,7 @@ const LoginScreen = (props: {
       .post("http://localhost:8080/user/dangnhap", {
         email: email,
         password: password,
+        role: "KH",
       })
       .then(function (response) {
         Toast.show({

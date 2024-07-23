@@ -3,40 +3,73 @@ const TaiKhoan = require("../models/account");
 const { message } = require("antd");
 const BenhNhan = require("../models/BenhNhan");
 const Khoa = require("../models/Khoa");
+const LickKham = require("../models/LichKham");
+const NhanVien = require("../models/NhanVien");
+const ThongBao = require("../models/ThongBao");
 module.exports.hello = async (req, res) => {
   res.json("day laf duong link /user");
 };
 
 module.exports.dangkyTK = async (req, res, next) => {
   try {
-    const { email, password, username } = req.body;
-    const userData = new TaiKhoan(req.body);
-    console.log(userData);
-    console.log(email);
-    const userExit = await TaiKhoan.findOne({ email });
+    const { email, password, username, role } = req.body;
+    if (role === null) {
+      const userData = new TaiKhoan(req.body);
+      console.log(userData);
+      console.log(email);
+      const userExit = await TaiKhoan.findOne({ email });
 
-    if (userExit) {
-      return res.status(400).json({ message: "User already exits." });
+      if (userExit) {
+        return res.status(400).json({ message: "User already exits." });
+      }
+
+      // Mã hóa mật khẩu trước khi lưu
+      const salt = await bcrypt.genSalt(10);
+      userData.password = await bcrypt.hash(userData.password, salt);
+
+      const saveUser = await userData.save();
+
+      const newBenhNhan = new BenhNhan({
+        Ten: username,
+        Email: email,
+        accountId: saveUser._id,
+      });
+
+      const saveBenhNhan = await newBenhNhan.save();
+      res.status(200).json({
+        message: "User registered successfully",
+        taiKhoan: saveUser,
+        benhNhan: saveBenhNhan,
+      });
+    } else if (role === "NV") {
+      const userData = new TaiKhoan(req.body);
+      console.log(userData);
+      console.log(email);
+      const userExit = await TaiKhoan.findOne({ email });
+
+      if (userExit) {
+        return res.status(400).json({ message: "User already exits." });
+      }
+
+      // Mã hóa mật khẩu trước khi lưu
+      const salt = await bcrypt.genSalt(10);
+      userData.password = await bcrypt.hash(userData.password, salt);
+
+      const saveUser = await userData.save();
+
+      const newNhanVien = new NhanVien({
+        HoTen: username,
+        Email: email,
+        MaTK: saveUser._id,
+      });
+
+      const saveNhanVien = await newNhanVien.save();
+      res.status(200).json({
+        message: "User registered successfully",
+        taiKhoan: saveUser,
+        NhanVien: saveNhanVien,
+      });
     }
-
-    // Mã hóa mật khẩu trước khi lưu
-    const salt = await bcrypt.genSalt(10);
-    userData.password = await bcrypt.hash(userData.password, salt);
-
-    const saveUser = await userData.save();
-
-    const newBenhNhan = new BenhNhan({
-      Ten: username,
-      Email: email,
-      accountId: saveUser._id,
-    });
-
-    const saveBenhNhan = await newBenhNhan.save();
-    res.status(200).json({
-      message: "User registered successfully",
-      taiKhoan: saveUser,
-      benhNhan: saveBenhNhan,
-    });
   } catch (error) {
     res.status(500).json({ error: "internal sever error" });
   }
@@ -44,22 +77,42 @@ module.exports.dangkyTK = async (req, res, next) => {
 
 module.exports.dangnhap = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    console.log(email, password);
-    const user = await TaiKhoan.findOne({ email });
+    const { email, password, role } = req.body;
+    if (role === "KH") {
+      console.log(email, password);
+      const user = await TaiKhoan.findOne({ email });
 
-    if (!user) {
-      res.status(400).json({ message: "user does not exits" });
-    }
+      if (!user) {
+        res.status(400).json({ message: "user does not exits" });
+      }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: "invalid password." });
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: "invalid password." });
+      }
+      const idTK = user.id;
+      const benhnhan = await BenhNhan.findOne({ accountId: idTK });
+      res.status(200).json({ message: "login successfil", data: benhnhan });
+    } else if (role === "NV") {
+      console.log("check nv");
+      console.log(email, password, role);
+      const user = await TaiKhoan.findOne({ email });
+
+      if (!user) {
+        console.log;
+        res.status(400).json({ message: "user does not exits" });
+      }
+
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: "invalid password." });
+      }
+      const idTK = user.id;
+      const nhanVien = await NhanVien.findOne({ MaTK: idTK });
+      res.status(200).json({ message: "login successfil", data: nhanVien });
     }
-    const idTK = user.id;
-    const benhnhan = await BenhNhan.findOne({ accountId: idTK });
-    res.status(200).json({ message: "login successfil", data: benhnhan });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "internal server error" });
   }
 };
@@ -121,8 +174,52 @@ module.exports.Theongay = async (req, res, next) => {
   }
 };
 
+module.exports.Datkham = async (req, res, next) => {
+  try {
+    const { TenNV, MaBN, TenKhoa, NgayDat } = req.body;
+
+    const MaKhoa = await Khoa.findOne({ tenkhoa: TenKhoa });
+
+    const MaNV = await NhanVien.findOne({ HoTen: "NgocDuyIT" });
+
+    const LickKhamnew = new LickKham({
+      NhanVienID: MaNV._id,
+      BenhNhanID: MaBN,
+      KhoaID: MaKhoa._id,
+      NgayDat: NgayDat,
+    });
+
+    const saveLichKham = await LickKhamnew.save();
+
+    const ThongBaonew = new ThongBao({
+      TieuDe: "Đặt lịch thành công",
+    });
+
+    ThongBaonew.save();
+
+    res.status(200).json({
+      message: "Lichkham registered successfully",
+      LichKham: saveLichKham,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 //////////////////////////////////////////////////////////////////////////////////
 
 // thong bao
+module.exports.thongbao = async (req, res, next) => {
+  try {
+    const dataThongBao = await ThongBao.find();
+    res.status(200).json({ data: dataThongBao });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 
 // phieu kham
+
+//nhan vien
+// cap nhap thong tin nhan vien

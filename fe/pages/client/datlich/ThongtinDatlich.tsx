@@ -1,15 +1,33 @@
-import React from "react";
-import { Text, View, SafeAreaView, StyleSheet, Dimensions, TouchableOpacity, ScrollView } from "react-native";
+import React, { useContext } from "react";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
-const ThongTinDatLichScreen = () => {
+import { UserContext } from "../../context/UserContext";
+
+//screens
+import ThongTinTK from "../account/ThongtinTaiKhoan";
+
+const ThongTinDatLichScreen = (props: any) => {
+  const { user } = useContext(UserContext);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.goBack();
+          }}
+        >
           <MaterialIcons
             name="arrow-back"
             size={RFPercentage(4)}
@@ -27,39 +45,46 @@ const ThongTinDatLichScreen = () => {
           <Text style={styles.infoHeader}>Thông tin cá nhân</Text>
           <View style={styles.infoItem}>
             <Text style={styles.label}>Họ và tên:</Text>
-            <Text style={styles.value}>Trần Đức An</Text>
+            <Text style={styles.value}>{user.Ten}</Text>
           </View>
           <View style={styles.infoItem}>
             <Text style={styles.label}>Mã số:</Text>
-            <Text style={styles.value}>123456</Text>
+            <Text style={styles.value}>{user._id}</Text>
           </View>
           <View style={styles.infoItem}>
             <Text style={styles.label}>Giới tính:</Text>
-            <Text style={styles.value}>Nam</Text>
+            <Text style={styles.value}>{user.GioiTinh}</Text>
           </View>
           <View style={styles.infoItem}>
             <Text style={styles.label}>Ngày sinh:</Text>
-            <Text style={styles.value}>23/05/2004</Text>
+            <Text style={styles.value}>{user.NgaySinh}</Text>
           </View>
           <View style={styles.infoItem}>
             <Text style={styles.label}>Địa chỉ:</Text>
-            <Text style={styles.value}>Trường Xuân, Tháp Mười, Đồng Tháp</Text>
+            <Text style={styles.value}>{user.DiaChi}</Text>
           </View>
           <View style={styles.infoItem}>
             <Text style={styles.label}>Số điện thoại:</Text>
-            <Text style={styles.value}>0123456789</Text>
+            <Text style={styles.value}>{user.SDT}</Text>
           </View>
           <View style={styles.infoItem}>
             <Text style={styles.label}>Email:</Text>
-            <Text style={styles.value}>example@example.com</Text>
+            <Text style={styles.value}>{user.Email}</Text>
           </View>
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button}>
+          {/* <TouchableOpacity style={styles.button} onPress={() => {}}>
             <Text style={styles.buttonText}>Tiếp tục</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          </TouchableOpacity> */}
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              props.navigation.navigate("naviTK", {
+                screen: "ThongTinTaiKhoan",
+              });
+            }}
+          >
             <Text style={styles.buttonText}>Chỉnh sửa thông tin</Text>
           </TouchableOpacity>
         </View>
@@ -110,7 +135,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: height * 0.02,
     textAlign: "center",
-    borderBottomWidth: 1, 
+    borderBottomWidth: 1,
     borderBottomColor: "rgba(196, 234, 250, 0.3)",
     paddingBottom: height * 0.01,
   },

@@ -40,6 +40,10 @@ import DetailTaiKhoan from "./pages/client/account/ThongtinTaiKhoan";
 import EditThongTinDatLichScreen from "./pages/client/datlich/ChinhSuaThongTinDatKham";
 import DatKhamBSScreen from "./pages/client/datlich/DatKhamBS";
 import DatlichNgayScreen from "./pages/client/datlich/DatkhamNgay";
+import DoctorCard from "./pages/client/Final/ListBacSi";
+import DanhSachBSScreen from "./pages/client/Final/DanhSachBS";
+import KetQuaScreen from "./pages/client/Final/KetQua";
+import BSAIScreen from "./pages/client/Final/BacSiAI";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -77,7 +81,6 @@ export const OurApp = () => {
       <Stack.Screen name="Registor" component={RegisterScreen} />
       <Stack.Screen name="ForgotPass" component={ForgotScreen} />
     </Stack.Navigator>
-    //  <DatKhamBSScreen/>
   );
 };
 
