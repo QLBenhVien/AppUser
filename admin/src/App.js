@@ -4,6 +4,7 @@ import DoctorPage from './Screens/TrangBacSi/DoctorPage';
 import MedicalRecords from './Screens/QuanLyHoSoBenhAn/MedicalRecords';
 import Prescription from './Screens/PhieuChiDinh/Prescription';
 import PatientInfo from './Screens/ThongTinHoSoBenhAn/PatientInfo';
+import Login from './Screens/Dangnhap/Login';
 
 const App = () => {
     return (
@@ -13,6 +14,7 @@ const App = () => {
                 <Route path="/prescription" element={<Prescription />} />
                 <Route path="/home" element={<DoctorPage />} />
                 <Route path="/patient-info" element={<PatientInfo />} />
+                <Route path="/login" element={<Login/>}></Route>
             </Routes>
         </Router>
     );
