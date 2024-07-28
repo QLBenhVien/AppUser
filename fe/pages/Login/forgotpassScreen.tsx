@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
 import {
   Text,
@@ -11,9 +11,29 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
+import axios from "axios";
+import Toast from "react-native-toast-message";
 const ForgotScreen = (props: { navigation: { goBack: () => void } }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [nhaplai, setNhaplai] = useState("");
   const handleUpdatePress = () => {
-    Alert.alert("Cập nhật thành công");
+    axios
+      .post("http://localhost:8080/user/laylaimk", {
+        email: email,
+        matkhau: password,
+      })
+      .then(function (res) {
+        props.navigation.goBack();
+        Toast.show({
+          type: "success",
+          text1: "Thông báo",
+          text2: "Đổi mật khẩu thành công!",
+        });
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
   };
   const handleLoginPress = () => {
     props.navigation.goBack();
@@ -21,6 +41,7 @@ const ForgotScreen = (props: { navigation: { goBack: () => void } }) => {
   const handleBackPress = () => {
     props.navigation.goBack();
   };
+
   return (
     <SafeAreaView style={styles.Container}>
       <ImageBackground
@@ -68,11 +89,20 @@ const ForgotScreen = (props: { navigation: { goBack: () => void } }) => {
           </View>
           <View style={styles.Infor}>
             <TextInput
+              value={email}
+              onChangeText={setEmail}
               style={styles.Inputinfor}
               placeholder="Nhập số điện thoại hoặc email "
             />
-            <TextInput style={styles.Inputpass} placeholder="Mật khẩu" />
             <TextInput
+              value={password}
+              onChangeText={setPassword}
+              style={styles.Inputpass}
+              placeholder="Mật khẩu"
+            />
+            <TextInput
+              value={nhaplai}
+              onChangeText={setNhaplai}
               style={styles.Inputpass2}
               placeholder="Nhập lại mật khẩu"
             />

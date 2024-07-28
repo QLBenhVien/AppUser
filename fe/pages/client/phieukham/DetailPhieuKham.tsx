@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Text,
   View,
@@ -80,7 +80,7 @@ const DetailPhieuKham = () => {
             </Text>
             <Text style={{ fontSize: RFPercentage(2.5), marginTop: 6 }}>
               {" "}
-              Họ Và Tên: <Text style={styles.infor}>Trần Đức An</Text>
+              Họ Và Tên: <Text style={styles.infor}>Phạm Ngọc Duy</Text>
             </Text>
             <Text style={{ fontSize: RFPercentage(2.5), marginTop: 6 }}>
               {" "}
@@ -88,11 +88,11 @@ const DetailPhieuKham = () => {
             </Text>
             <Text style={{ fontSize: RFPercentage(2.5), marginTop: 6 }}>
               {" "}
-              Năm Sinh: <Text style={styles.infor}>2004</Text>
+              Năm Sinh: <Text style={styles.infor}>2003s</Text>
             </Text>
             <Text style={{ fontSize: RFPercentage(2.5), marginTop: 6 }}>
               {" "}
-              Tỉnh/TP: <Text style={styles.infor}>Đồng Tháp</Text>
+              Tỉnh/TP: <Text style={styles.infor}>BMT</Text>
             </Text>
           </View>
         </View>

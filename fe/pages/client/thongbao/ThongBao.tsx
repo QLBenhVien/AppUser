@@ -41,17 +41,21 @@ const ThongBao = () => {
           height: "83%",
         }}
       >
-        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-          {thongBaoData.map(
-            (item: any, index: React.Key | null | undefined) => (
-              <ThongBaoCard
-                key={index}
-                thongBao={item}
-                onPress={() => handlePress(item)}
-              />
-            )
-          )}
-        </ScrollView>
+        {thongBaoData.length > 0 ? (
+          <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+            {thongBaoData.map(
+              (item: any, index: React.Key | null | undefined) => (
+                <ThongBaoCard
+                  key={index}
+                  thongBao={item}
+                  onPress={() => handlePress(item)}
+                />
+              )
+            )}
+          </ScrollView>
+        ) : (
+          <Text>Không có thông báo!</Text>
+        )}
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
