@@ -2,12 +2,17 @@ import styled from "styled-components";
 
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const LoginBox = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handlelogin = async () => {
-    console.log("da nhan");
 
+  // eslint-disable-next-line no-unused-vars
+  const navigate = useNavigate();
+
+  const handlelogin = async (e) => {
+    e.preventDefault();
+    console.log("da nhan");
     await axios
       .post("http://localhost:8080/user/dangnhap", {
         email: email,
@@ -15,7 +20,8 @@ const LoginBox = ({ onLogin }) => {
         role: "NV",
       })
       .then(function (res) {
-        console.log("Dang nhap thanh cong");
+        console.log(res.data.data);
+        navigate("/home", { state: { user: res.data.data } });
       })
       .catch(function (err) {
         console.log(err);

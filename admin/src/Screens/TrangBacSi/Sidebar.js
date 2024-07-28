@@ -1,21 +1,24 @@
-import React from 'react';
-import styled from 'styled-components';
-import logo from '../../images/logo.png';
+import React from "react";
+import styled from "styled-components";
+import logo from "../../images/logo.png";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ onNavigate }) => {
+  const navigate = useNavigate();
+
   return (
     <SidebarContainer>
       <LogoContainer>
         <Logo src={logo} alt="Phòng khám UCM" />
         <h1>Phòng khám UCM</h1>
       </LogoContainer>
-      <MenuItem onClick={() => onNavigate('HomePage')}>
+      <MenuItem onClick={() => navigate("/home")}>
         <HomeLink href="#">Trang chủ</HomeLink>
       </MenuItem>
-      <MenuItem onClick={() => onNavigate('HoSoBenhAn')}>
+      <MenuItem onClick={() => navigate("/quan-ly-ho-so-benh-an")}>
         <MenuLink href="#">Hồ sơ bệnh án</MenuLink>
       </MenuItem>
-      <MenuItem onClick={() => onNavigate('PhieuChiDinh')}> 
+      <MenuItem onClick={() => navigate("/phieu-chi-dinh")}>
         <MenuLink href="#">Phiếu chỉ định</MenuLink>
       </MenuItem>
     </SidebarContainer>
@@ -27,7 +30,7 @@ export default Sidebar;
 // Styled Components
 const SidebarContainer = styled.div`
   width: 300px;
-  background-color: #22668E;
+  background-color: #22668e;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,7 +72,7 @@ const HomeLink = styled.a`
   padding: 15px;
   margin: 10px 0;
   background-color: white;
-  color: #22668E;
+  color: #22668e;
   text-decoration: none;
   border-radius: 10px;
   font-weight: bold;
@@ -85,7 +88,7 @@ const MenuLink = styled.a`
   width: 90%;
   padding: 15px;
   margin: 10px 0;
-  background-color: #578EAF;
+  background-color: #578eaf;
   color: black;
   text-decoration: none;
   border-radius: 10px;

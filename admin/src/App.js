@@ -1,6 +1,11 @@
-import React from 'react';
+import React from "react";
 // React Router
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 // Login page
 import Header from "./Screens/Dangnhap/Header";
@@ -30,29 +35,71 @@ const App = () => {
     <Router>
       <div className="AppContainer">
         <Routes>
-          <Route path="/login" element={
-            <>
-              <Header />
-              <div className="LoginContainer">
-                <div className="LeftContainer">
-                  <p className="WelcomeText">Vui lòng đăng nhập</p>
-                  <LoginBox />
+          <Route
+            path="/login"
+            element={
+              <>
+                <Header />
+                <div className="LoginContainer">
+                  <div className="LeftContainer">
+                    <p className="WelcomeText">Vui lòng đăng nhập</p>
+                    <LoginBox />
+                  </div>
+                  <div className="RightContainer">
+                    <img
+                      className="DoctorImage"
+                      src={doctorImage}
+                      alt="Doctor"
+                    />
+                  </div>
                 </div>
-                <div className="RightContainer">
-                  <img className="DoctorImage" src={doctorImage} alt="Doctor" />
-                </div>
-              </div>
-            </>
-          } />
-          <Route path="/home" element={<><Sidebar /><NavBar /><HomePage /></>} />
-          <Route path="/phieu-chi-dinh" element={<><SidebarPCD /><NavBarPCD /><HomePagePCD /></>} />
-          <Route path="/quan-ly-ho-so-benh-an" element={<><SidebarQLHSBA /><NavBarQLHSBA /><HomePageQLHSBA /></>} />
-          <Route path="/thong-tin-ho-so-benh-an" element={<><SidebarTTHSBA /><NavBarTTHSBA /><HomePageTTHSBA /></>} />
+              </>
+            }
+          />
+          <Route
+            path="/home"
+            element={
+              <>
+                <Sidebar />
+                <NavBar />
+                <HomePage />
+              </>
+            }
+          />
+          <Route
+            path="/phieu-chi-dinh"
+            element={
+              <>
+                <SidebarPCD />
+                <NavBarPCD />
+                <HomePagePCD />
+              </>
+            }
+          />
+          <Route
+            path="/quan-ly-ho-so-benh-an"
+            element={
+              <>
+                <SidebarQLHSBA />
+                <NavBarQLHSBA />
+                <HomePageQLHSBA />
+              </>
+            }
+          />
+          <Route
+            path="/thong-tin-ho-so-benh-an"
+            element={
+              <>
+                <SidebarTTHSBA />
+                <NavBarTTHSBA />
+                <HomePageTTHSBA />
+              </>
+            }
+          />
           <Route path="*" element={<Navigate replace to="/login" />} />
         </Routes>
       </div>
     </Router>
-
   );
 };
 

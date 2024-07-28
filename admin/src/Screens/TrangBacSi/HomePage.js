@@ -1,9 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
-import HoSoBenhAnIcon from '../../images/hoSoBenhAn.png';
-import PhieuChiDinhIcon from '../../images/phieuChiDinh.png';
+import React from "react";
+import styled from "styled-components";
+import HoSoBenhAnIcon from "../../images/hoSoBenhAn.png";
+import PhieuChiDinhIcon from "../../images/phieuChiDinh.png";
+import { useLocation } from "react-router-dom";
 
 const HomePage = () => {
+  const location = useLocation();
+  const user = location.state?.user;
+
   return (
     <HomePageContainer>
       <HeaderContainer>
@@ -17,7 +21,7 @@ const HomePage = () => {
             <div>
               <ProfilePicture />
               <ProfileDetails>
-                <p className="name">Nguyễn Văn A</p>
+                <p className="name">{user.HoTen}</p>
                 <p className="specialization">Bác sĩ nội khoa</p>
               </ProfileDetails>
             </div>
@@ -25,7 +29,7 @@ const HomePage = () => {
               <p>Mã</p>
               <p>BS001</p>
             </div>
-            <div style={{ marginRight: '40px' }}>
+            <div style={{ marginRight: "40px" }}>
               <p>Giới tính</p>
               <p>Nam</p>
             </div>
@@ -60,7 +64,7 @@ export default HomePage;
 const HomePageContainer = styled.div`
   width: auto;
   height: 100%;
-  background: #E4F5FF;
+  background: #e4f5ff;
   padding: 20px;
 `;
 
@@ -72,7 +76,7 @@ const HeaderContainer = styled.div`
 `;
 
 const HeaderTitle = styled.h1`
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
   font-size: 20px;
@@ -81,7 +85,7 @@ const HeaderTitle = styled.h1`
 `;
 
 const Breadcrumbs = styled.div`
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
@@ -96,7 +100,7 @@ const InfoSection = styled.div`
 `;
 
 const ProfileCardContainer = styled.div`
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -106,12 +110,12 @@ const ProfileCardContainer = styled.div`
 `;
 
 const WelcomeText = styled.div`
-  font-family: 'Times New Roman';
+  font-family: "Times New Roman";
   font-style: italic;
   font-weight: 700;
   font-size: 24px;
   line-height: 150%;
-  color: #FFFFFF;
+  color: #ffffff;
   background-color: #2a6f93;
   width: 475px;
   padding: 30px 0;
@@ -132,7 +136,7 @@ const ProfileInfo = styled.div`
 const ProfilePicture = styled.div`
   width: 80px;
   height: 80px;
-  background: #D9D9D9;
+  background: #d9d9d9;
   border-radius: 50%;
   margin-top: 25px;
 `;
@@ -160,7 +164,7 @@ const InfoCardContainer = styled.div`
 `;
 
 const InfoCard = styled.div`
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 10px;
   padding: 20px;
   display: flex;
@@ -171,7 +175,7 @@ const InfoCard = styled.div`
   position: relative;
 
   h3 {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -181,7 +185,7 @@ const InfoCard = styled.div`
   }
 
   div {
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
@@ -200,7 +204,7 @@ const InfoIcon = styled.img`
 `;
 
 const WorkScheduleContainer = styled.div`
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 10px;
   padding: 20px;
   display: flex;
@@ -212,7 +216,7 @@ const WorkScheduleContainer = styled.div`
 `;
 
 const WorkScheduleTitle = styled.h3`
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
   font-size: 24px;
@@ -227,11 +231,11 @@ const TimeSlots = styled.div`
   margin-top: 10px;
 
   .time-slot {
-    background: #22668E;
-    color: #FFFFFF;
+    background: #22668e;
+    color: #ffffff;
     padding: 10px 20px;
     border-radius: 10px;
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
