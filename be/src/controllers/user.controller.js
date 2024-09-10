@@ -1,5 +1,5 @@
-const bcrypt = require("bcrypt");
-const TaiKhoan = require("../models/account");
+const bcrypt = require("bcryptjs");
+const TaiKhoan = require("../models/account.model");
 const { message } = require("antd");
 const BenhNhan = require("../models/BenhNhan");
 const Khoa = require("../models/Khoa");
@@ -17,9 +17,9 @@ module.exports.dangkyTK = async (req, res, next) => {
       const userData = new TaiKhoan(req.body);
       console.log(userData);
       console.log(email);
-      const userExit = await TaiKhoan.findOne({ email });
+      const userExist = await TaiKhoan.findOne({ email });
 
-      if (userExit) {
+      if (userExist) {
         return res.status(400).json({ message: "User already exits." });
       }
 
