@@ -5,6 +5,7 @@ const lichkhamSchema = new mongoose.Schema({
   BenhNhanID: { type: mongoose.Schema.Types.ObjectId, ref: "BenhNhan" },
   KhoaID: { type: mongoose.Schema.Types.ObjectId, ref: "Khoa" },
   NgayDat: { type: String },
+  STT: { type: Number },
 });
 
 const LichKham = mongoose.model("LichKham", lichkhamSchema);

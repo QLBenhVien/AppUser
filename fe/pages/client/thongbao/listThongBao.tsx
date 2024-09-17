@@ -26,9 +26,7 @@ const ThongBaoCard: React.FC<ThongBaoCardProps> = ({ thongBao, onPress }) => {
     <TouchableOpacity style={styles.itemContainer} onPress={onPress}>
       <View style={styles.infoContainer}>
         <Text style={styles.title}>{thongBao.TieuDe}</Text>
-        <Text style={styles.message}>
-          Phòng 25 | chuyên khoa: răng hàm mặt{" "}
-        </Text>
+        <Text style={styles.message}>Vui lòng kiểm tra ở phiếu khám</Text>
       </View>
     </TouchableOpacity>
   );

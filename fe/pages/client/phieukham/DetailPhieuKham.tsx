@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -12,7 +13,24 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 
 const { width, height } = Dimensions.get("window");
 
-const DetailPhieuKham = () => {
+const DetailPhieuKham = ({ route }) => {
+  const { id, tenkhoa } = route.params;
+
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:8080/user/chitietphieukham", {
+        id: id,
+      })
+      .then(function (res) {
+        console.log(res.data.data);
+        setData(res.data.data);
+      })
+      .catch(function (error) {});
+  }, []);
+  console.log(id);
+  console.log(tenkhoa);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -47,8 +65,8 @@ const DetailPhieuKham = () => {
             >
               PHIẾU KHÁM BỆNH
             </Text>
-            <Text style={{ fontSize: RFPercentage(3), marginTop: 8 }}>
-              (Mã Phiếu: <Text style={styles.maphieu}>00000</Text>)
+            <Text style={{ fontSize: RFPercentage(2), marginTop: 8 }}>
+              (Mã Phiếu: <Text style={styles.maphieu}>{data.ma}</Text>)
             </Text>
           </View>
           <View style={styles.maQR}>
@@ -61,18 +79,19 @@ const DetailPhieuKham = () => {
             <Text style={styles.phongkham}> Khám Nội Lầu 1 Khu A </Text>
             <Text style={{ fontSize: RFPercentage(2.5), marginTop: 6 }}>
               {" "}
-              Phòng Khám: <Text style={styles.phongkham}>Phòng 25</Text>
+              Phòng Khám: <Text style={styles.phongkham}>Phòng {data.stt}</Text>
             </Text>
             <Text style={{ fontSize: RFPercentage(2.5), marginTop: 6 }}>
               {" "}
-              Chuyên Khoa: <Text style={styles.phongkham}>TAI MŨI HỌNG</Text>
+              Chuyên Khoa: <Text style={styles.phongkham}>{tenkhoa}</Text>
             </Text>
-            <Text style={styles.STT}>24</Text>
+            <Text style={styles.STT}>{data.stt}</Text>
           </View>
           <View style={styles.inforcontainer}>
             <Text style={{ fontSize: RFPercentage(2.5), marginTop: 6 }}>
               {" "}
-              Ngày Khám: <Text style={styles.infor}>00-00-00 (Buổi sáng)</Text>
+              Ngày Khám:{" "}
+              <Text style={styles.infor}>{data.ngay} (Buổi sáng)</Text>
             </Text>
             <Text style={{ fontSize: RFPercentage(2.5), marginTop: 6 }}>
               {" "}
@@ -80,7 +99,7 @@ const DetailPhieuKham = () => {
             </Text>
             <Text style={{ fontSize: RFPercentage(2.5), marginTop: 6 }}>
               {" "}
-              Họ Và Tên: <Text style={styles.infor}>Phạm Ngọc Duy</Text>
+              Họ Và Tên: <Text style={styles.infor}>{data.benhnhan}</Text>
             </Text>
             <Text style={{ fontSize: RFPercentage(2.5), marginTop: 6 }}>
               {" "}
@@ -88,7 +107,7 @@ const DetailPhieuKham = () => {
             </Text>
             <Text style={{ fontSize: RFPercentage(2.5), marginTop: 6 }}>
               {" "}
-              Năm Sinh: <Text style={styles.infor}>2003s</Text>
+              Năm Sinh: <Text style={styles.infor}>{data.namsinhbn}</Text>
             </Text>
             <Text style={{ fontSize: RFPercentage(2.5), marginTop: 6 }}>
               {" "}
@@ -132,7 +151,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   maphieu: {
-    fontSize: RFPercentage(3.5),
+    fontSize: RFPercentage(2.5),
   },
   maQR: {
     flexDirection: "row",

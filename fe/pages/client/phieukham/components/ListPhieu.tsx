@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Text,
   View,
@@ -7,63 +7,54 @@ import {
   FlatList,
   Dimensions,
   TouchableOpacity,
-  SafeAreaView,
 } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 
 interface DataItem {
-  id: Int16Array;
-  room: string;
-  specialization: string;
+  id: string;
+  room: number;
+  specialization: {
+    _id: string;
+    tenkhoa: string;
+  };
 }
 
 interface ListPhieuProps {
   data: DataItem[];
-  onPress: (item: DataItem) => void;
+  onPress: (id: String, tenkhoa: String) => void;
 }
 
 const ListPhieu: React.FC<ListPhieuProps> = ({ data, onPress }) => {
-  const Renderitem = ({ item }: { item: DataItem }) => (
-    <TouchableOpacity style={styles.container} onPress={() => onPress(item.id)}>
-      <View
-        style={{
-          height: "90%",
-          width: "30%",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+  const RenderItem = ({ item }: { item: DataItem }) => (
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => onPress(item.id, item.specialization.tenkhoa)}
+    >
+      <View style={styles.imageContainer}>
         <Image
           source={require("../../../../assets/logo.png")}
           style={styles.logo}
-        ></Image>
+        />
       </View>
-      <View
-        style={{
-          height: "100%",
-          width: "70%",
-          justifyContent: "center",
-        }}
-      >
+      <View style={styles.textContainer}>
         <Text style={styles.textcontent}>Phòng khám: {item.room} </Text>
         <Text style={styles.textcontent}>
-          Chuyên khoa: {item.specialization}
+          Chuyên khoa: {item.specialization.tenkhoa}
         </Text>
       </View>
     </TouchableOpacity>
   );
+
   return (
     <FlatList
       data={data}
-      renderItem={Renderitem}
-      keyExtractor={(item, index) => index.toString()}
+      renderItem={RenderItem}
+      keyExtractor={(item) => item.id}
       contentContainerStyle={styles.listContentContainer}
     />
   );
 };
-
-export default ListPhieu;
 
 const styles = StyleSheet.create({
   container: {
@@ -77,14 +68,21 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
   },
   listContentContainer: { paddingHorizontal: 8 },
+  imageContainer: {
+    height: "90%",
+    width: "30%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   logo: {
     height: width * 0.256,
     width: "90%",
     marginTop: "10%",
   },
-  imglogo: {
-    borderRadius: 125,
-    overflow: "hidden",
+  textContainer: {
+    height: "100%",
+    width: "70%",
+    justifyContent: "center",
   },
   textcontent: {
     fontSize: 16,
@@ -93,3 +91,5 @@ const styles = StyleSheet.create({
     marginVertical: "2%",
   },
 });
+
+export default ListPhieu;

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Header from "../../../components/Header";
 import ListPhieu from "./components/ListPhieu";
 import Phieu from "../phieukham/DetailPhieuKham";
+import axios from "axios";
 
 const phieuData = [
   {
@@ -36,9 +37,21 @@ const phieuData = [
 const Stack = createNativeStackNavigator();
 
 const PhieuKham = ({ navigation }) => {
-  const handlePress = (room) => {
-    navigation.navigate("Chi tiết");
+  const handlePress = (id: any, tenkhoa: any) => {
+    navigation.navigate("Chi tiết", { id, tenkhoa });
   };
+
+  const [dataphieu, setDataphieu] = useState([]);
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:8080/user/phieukham", {})
+      .then(function (res) {
+        setDataphieu(res.data.data);
+        console.log(dataphieu);
+      })
+      .catch(function (error) {});
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,7 +66,7 @@ const PhieuKham = ({ navigation }) => {
         <Stack.Screen
           name="Phiếu khám bệnh"
           options={{ headerShown: false }}
-          component={() => <ListPhieu data={phieuData} onPress={handlePress} />}
+          component={() => <ListPhieu data={dataphieu} onPress={handlePress} />}
         />
         <Stack.Screen name="Chi tiết" component={Phieu} />
       </Stack.Navigator>

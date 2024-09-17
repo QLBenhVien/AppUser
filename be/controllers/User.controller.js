@@ -6,6 +6,9 @@ const Khoa = require("../models/Khoa");
 const LickKham = require("../models/LichKham");
 const NhanVien = require("../models/NhanVien");
 const ThongBao = require("../models/ThongBao");
+const LichKham = require("../models/LichKham");
+const mongoose = require("mongoose"); // Thêm dòng này để import mongoose
+
 module.exports.hello = async (req, res) => {
   res.json("day laf duong link /user");
 };
@@ -13,7 +16,7 @@ module.exports.hello = async (req, res) => {
 module.exports.dangkyTK = async (req, res, next) => {
   try {
     const { email, password, username, role } = req.body;
-    if (role === null) {
+    if (role === "BN") {
       const userData = new TaiKhoan(req.body);
       console.log(userData);
       console.log(email);
@@ -173,7 +176,11 @@ module.exports.Theongay = async (req, res, next) => {
     res.status(500).json({ message: "Error fetching khoa information", error });
   }
 };
-
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 module.exports.Datkham = async (req, res, next) => {
   try {
     const { TenNV, MaBN, TenKhoa, NgayDat } = req.body;
@@ -187,6 +194,7 @@ module.exports.Datkham = async (req, res, next) => {
       BenhNhanID: MaBN,
       KhoaID: MaKhoa._id,
       NgayDat: NgayDat,
+      STT: getRandomInt(1, 100),
     });
 
     const saveLichKham = await LickKhamnew.save();
@@ -255,5 +263,75 @@ module.exports.laylaimk = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     res.status(500).json("Internal server error");
+  }
+};
+
+module.exports.phieukham = async (req, res, next) => {
+  try {
+    const dataPhieuKham = await LichKham.find();
+
+    if (!dataPhieuKham || dataPhieuKham.length === 0) {
+      return res.status(404).json({ message: "No appointments found" });
+    }
+
+    // Lấy thông tin từng lịch khám và chuyên khoa liên quan
+    const result = await Promise.all(
+      dataPhieuKham.map(async (data) => {
+        const khoa = await Khoa.findById(data.KhoaID);
+        if (!khoa) {
+          throw new Error(`No department found with id ${data.KhoaID}`);
+        }
+        return {
+          id: data._id,
+          room: data.STT,
+          specialization: khoa,
+        };
+      })
+    );
+
+    res.status(200).json({
+      data: result,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+module.exports.chitietphieukham = async (req, res, next) => {
+  try {
+    const { id } = req.body; // Lấy id từ req.params
+
+    // Kiểm tra xem id có hợp lệ hay không
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid ID format" });
+    }
+
+    // Tìm kiếm chi tiết phiếu khám và các thông tin liên quan đồng thời
+    const lichkhamchitiet = await LichKham.findById(id);
+    if (!lichkhamchitiet) {
+      return res.status(404).json({ error: "Phieu kham not found" });
+    }
+
+    console.log(lichkhamchitiet.KhoaID);
+    const [benhnhan, nhanvien, khoa] = await Promise.all([
+      BenhNhan.findById(lichkhamchitiet.BenhNhanID),
+      NhanVien.findById(lichkhamchitiet.NhanVienID),
+      Khoa.findById(lichkhamchitiet.KhoaID),
+    ]);
+    console.log(khoa.Tenkhoa);
+    res.status(200).json({
+      data: {
+        ma: lichkhamchitiet._id,
+        benhnhan: benhnhan ? benhnhan.Ten : null,
+        namsinhbn: benhnhan.NgaySinh,
+        nhanvien: nhanvien ? nhanvien.HoTen : null,
+        stt: lichkhamchitiet.STT,
+        ngay: lichkhamchitiet.NgayDat,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };

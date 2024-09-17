@@ -81,10 +81,11 @@ const RegisterScreen: React.FC = (props) => {
     if (isValid) {
       console.log("da nhan click");
       await axios
-        .post("http://localhost:8080/user/dangky", {
+        .post("http://localhost:8080/user/dangkyTK", {
           email: email,
           password: password,
           username: fullName,
+          role: "BN",
         })
         .then(function (response) {
           console.log(response);
