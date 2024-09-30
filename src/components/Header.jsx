@@ -1,6 +1,5 @@
-import  { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Context } from "../main.jsx";
-// import { useLocation } from "react-router-dom";
 import '../App.css'; 
 
 const Header = () => {
@@ -22,7 +21,6 @@ const Header = () => {
   return (
     <div className="container">
     <div className="header"></div>
-
     <div className="doctor-info">
       <div className="doctor-profile">
         <img className="doctor-image" src="Male User.png" alt="Doctor" />

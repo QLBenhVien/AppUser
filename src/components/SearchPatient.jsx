@@ -30,8 +30,6 @@ const SearchPatient = () => {
     },
   ];
 
-
-
   const toggleQueryInfo = () => {
     setShowQueryInfo(!showQueryInfo);
   };
@@ -39,8 +37,6 @@ const SearchPatient = () => {
   const handleCancel = () => {
     setShowQueryInfo(false); 
   };
-
-  // const { isAuthenticated, admin } = useContext(Context);
 
   return (
     <div className="outer">
@@ -96,7 +92,7 @@ const SearchPatient = () => {
             </div>
           )}  
 
-<div className="patient-table">
+    <div className="patient-table">
             <div className="patient-table-header">
               <div className="patient-header-cell stt">STT</div>
               <div className="patient-header-cell ma-hs">Mã HS</div>
